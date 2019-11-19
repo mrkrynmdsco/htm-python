@@ -2,7 +2,7 @@
 import numpy as np
 
 
-class SDR(object):
+class SparseDistributedRepresentation:
     """
     Sparse Distributed Representation
 
@@ -24,6 +24,9 @@ class SDR(object):
         self._sparsity = sparsity
         self._wcells = self._compute_population(ncells, sparsity)
 
+        self._dense = None
+        self._sparse = None
+
     @property
     def ncells(self):
         return self._ncells
@@ -39,3 +42,8 @@ class SDR(object):
     @staticmethod
     def _compute_population(n: int, s: float) -> int:
         return int(n * s)
+
+
+class SDR(SparseDistributedRepresentation):
+    """Alias for SparseDistributedRepresentation Class"""
+    pass
