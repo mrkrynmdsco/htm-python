@@ -3,62 +3,81 @@ import torch
 import torch.cuda as cuda
 
 
+def compute_nbits(n: int) -> int:
+    return int(2 ** n)
+
+
+def compute_population(n: int, s: float) -> int:
+    return int(n * s)
+
+
 class SparseDistributedRepresentation:
     """
     Sparse Distributed Representation
 
+        The representation data format of HTM Systems
     ...
 
-    Parameter
-    ---------
-    resolution: int
-        bit resolution
-    sparsity: float
-        ratio of active cells to total number of cells
+    Parameters
+    ----------
+    bitres: int
+        - bit resolution of representation
+    spct: float
+        - ratio of active bitd to total number of bits in the vector
+        - applicable range [0.005 : 0.02]
 
     Attributes
     ----------
-    ncells : int
-        number of cells
+    nbits : int
+        - number of bits in the vector
     sparsity : float
-        sparse percentage
-    wcells : int
-        number of active cells
+        - sparse percentage
+    wbits : int
+        - number of active bits
 
     Methods
     -------
 
     """
 
-    def __init__(self, resolution: int = 12, sparsity: float = 0.02):
-        self._resolution = resolution
-        self._sparsity = sparsity
+    def __init__(self, bitres: int = 12, spct: float = 0.02):
+        self._bitres = bitres
+        self._spct = spct
 
-        self._ncells = int(2 ** self.resolution)
-        self._wcells = self._compute_population(self.ncells, self.sparsity)
+        self._nbits = compute_nbits(self.bitres)
+        self._wbits = compute_population(self.nbits, self.sparsity)
 
         if cuda.is_available():
-            self._dense = cuda.BoolTensor(self.ncells)
+            self._dense = cuda.BoolTensor(self.nbits)
+            self._sparse = torch.zeros(self.wbits, dtype=torch.int32, device=torch.device('cuda:0'))
         else:
-            self._dense = torch.BoolTensor(self.ncells)
-
-        self._sparse = torch.zeros(self.wcells, dtype=torch.int32)
+            self._dense = torch.BoolTensor(self.nbits)
+            self._sparse = torch.zeros(self.wbits, dtype=torch.int32)
 
     @property
-    def resolution(self):
-        return self._resolution
+    def bitres(self):
+        return self._bitres
+
+    @bitres.setter
+    def bitres(self, b: int):
+        self._bitres = b
+        compute_nbits(self.bitres)
 
     @property
     def sparsity(self):
-        return self._sparsity
+        return self._spct
+
+    @sparsity.setter
+    def sparsity(self, s: float):
+        self._spct = s
 
     @property
-    def ncells(self):
-        return self._ncells
+    def nbits(self):
+        return self._nbits
 
     @property
-    def wcells(self):
-        return self._wcells
+    def wbits(self):
+        return self._wbits
 
     @property
     def dense(self):
@@ -68,9 +87,21 @@ class SparseDistributedRepresentation:
     def sparse(self):
         return self._sparse
 
-    @staticmethod
-    def _compute_population(n: int, s: float) -> int:
-        return int(n * s)
+    @sparse.setter
+    def sparse(self, t: torch.Tensor):
+        if t.size() == self.sparse.size():
+            self._sparse = t
+        else:
+            raise Exception('Tensor size mismatch. {} is expected.'.format(self.sparse.size()))
+
+    def view_dense(self, row: int = 64, col: int = 64):
+        if cuda.is_available():
+            return self.dense.type(cuda.ByteTensor).view((row, col))
+        else:
+            return self.dense.type(torch.ByteTensor).view((row, col))
+
+    def view_sparse(self, row: int = 9, col: int = 9):
+        return self.sparse.view((row, col))
 
 
 class SDR(SparseDistributedRepresentation):
