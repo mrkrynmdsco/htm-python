@@ -11,7 +11,7 @@ DEF_SPARSE_PCT = 0.02
 DEF_ON_BITS = 81
 
 
-class SDR_InitializationTests(ut.TestCase):
+class SDR_InitTests(ut.TestCase):
 
     def setUp(self):
         self.sdr = SDR()
@@ -32,22 +32,56 @@ class SDR_InitializationTests(ut.TestCase):
         self.assertEqual(self.sdr.wbits, DEF_ON_BITS)
         self.assertIsInstance(self.sdr.wbits, int)
 
-    def test_default_dense_tensor(self):
+    def test_default_formats(self):
+        self.assertListEqual(self.sdr.sparse, [])
+        self.assertListEqual(self.sdr.coords, [])
+        self.assertListEqual(self.sdr.dense().tolist(), [False]*self.sdr.nbits)
+
+    def test_default_device_allocation(self):
         if cuda.is_available():
-            self.assertIsInstance(self.sdr.dense, cuda.BoolTensor)
+            self.assertEqual(self.sdr.device, 'cuda')
         else:
-            self.assertIsInstance(self.sdr.dense, torch.BoolTensor)
+            self.assertEqual(self.sdr.device, 'cpu')
 
-        self.assertEqual(self.sdr.dense.size(), torch.Size([DEF_NBITS]))
 
-    def test_default_sparse_tensor(self):
-        self.assertEqual(self.sdr.sparse.size(), torch.Size([DEF_ON_BITS]))
-        if cuda.is_available():
-            self.assertIsInstance(self.sdr.sparse, torch.cuda.IntTensor)
-            self.assertEqual(self.sdr.sparse.device, torch.device('cuda:0'))
+class SDR_UseTests(ut.TestCase):
+
+    def test_set_bit_resolution(self):
+        self.sdr = SDR(bitres=10)
+        self.assertEqual(self.sdr.bitres, 10)
+        self.assertEqual(self.sdr.nbits, 1024)
+
+        self.sdr.bitres = 8
+        self.assertEqual(self.sdr.bitres, 8)
+        self.assertEqual(self.sdr.nbits, 256)
+
+    def test_set_sparsity(self):
+        self.sdr = SDR(sprpct=0.5)
+        self.assertEqual(self.sdr.sparsity, 0.5)
+        self.assertEqual(self.sdr.wbits, 2048)
+
+        self.sdr.sparsity = 0.02
+        self.assertEqual(self.sdr.sparsity, 0.02)
+        self.assertEqual(self.sdr.wbits, 81)
+
+    def test_set_sparse(self):
+        self.sdr = SDR(bitres=3, sprpct=0.5)
+        self.sdr.sparse = [1, 2, 5, 6]
+        if 'cuda' == self.sdr.device:
+            self.assertIsInstance(self.sdr.sparse, cuda.IntTensor)
         else:
             self.assertIsInstance(self.sdr.sparse, torch.IntTensor)
-            self.assertEqual(self.sdr.sparse.device, torch.device('cpu'))
+
+        self.assertListEqual(self.sdr.sparse.tolist(), [1, 2, 5, 6])
+        self.assertListEqual(self.sdr.dense(raw=False).tolist(), [0, 1, 1, 0, 0, 1, 1, 0])
+
+    def test_set_coords(self):
+        self.sdr = SDR(bitres=3, sprpct=0.25)
+        if 'cuda' == self.sdr.device:
+            self.assertIsInstance(self.sdr.coords, cuda.IntTensor)
+        else:
+            self.assertIsInstance(self.sdr.coords, torch.IntTensor)
+        # FIXME Failing
 
 
 if __name__ == '__main__':

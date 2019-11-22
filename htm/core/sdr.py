@@ -7,7 +7,7 @@ def compute_nbits(n: int) -> int:
     return int(2 ** n)
 
 
-def compute_population(n: int, s: float) -> int:
+def compute_wbits(n: int, s: float) -> int:
     return int(n * s)
 
 
@@ -22,9 +22,9 @@ class SparseDistributedRepresentation:
     ----------
     bitres: int
         - bit resolution of representation
-    spct: float
-        - ratio of active bitd to total number of bits in the vector
-        - applicable range [0.005 : 0.02]
+    sprpct: float
+        - ratio of active bits to total number of bits in the vector (sparse percentage)
+        - suggested range [0.005 : 0.02]
 
     Attributes
     ----------
@@ -37,22 +37,22 @@ class SparseDistributedRepresentation:
 
     Methods
     -------
+    to_sdr()
 
     """
 
-    def __init__(self, bitres: int = 12, spct: float = 0.02):
+    def __init__(self, bitres: int = 12, sprpct: float = 0.02):
         self._bitres = bitres
-        self._spct = spct
+        self._sprpct = sprpct
+        self._device = 'cuda' if cuda.is_available() else 'cpu'
 
         self._nbits = compute_nbits(self.bitres)
-        self._wbits = compute_population(self.nbits, self.sparsity)
+        self._wbits = compute_wbits(self.nbits, self.sparsity)
 
-        if cuda.is_available():
-            self._dense = cuda.BoolTensor(self.nbits)
-            self._sparse = torch.zeros(self.wbits, dtype=torch.int32, device=torch.device('cuda:0'))
-        else:
-            self._dense = torch.BoolTensor(self.nbits)
-            self._sparse = torch.zeros(self.wbits, dtype=torch.int32)
+        self._sparse = []  # a Tensor of indices of each ACTIVE bits
+        self._coords = []  # a Tensor of coordinates of each ACTIVE bits
+
+        self._dense = []  # Dense representation (read-only)
 
     @property
     def bitres(self):
@@ -61,15 +61,20 @@ class SparseDistributedRepresentation:
     @bitres.setter
     def bitres(self, b: int):
         self._bitres = b
-        compute_nbits(self.bitres)
+        self._nbits = compute_nbits(self.bitres)
 
     @property
     def sparsity(self):
-        return self._spct
+        return self._sprpct
 
     @sparsity.setter
     def sparsity(self, s: float):
-        self._spct = s
+        self._sprpct = s
+        self._wbits = compute_wbits(self.nbits, self.sparsity)
+
+    @property
+    def device(self):
+        return self._device
 
     @property
     def nbits(self):
@@ -80,28 +85,41 @@ class SparseDistributedRepresentation:
         return self._wbits
 
     @property
-    def dense(self):
-        return self._dense
-
-    @property
     def sparse(self):
         return self._sparse
 
     @sparse.setter
-    def sparse(self, t: torch.Tensor):
-        if t.size() == self.sparse.size():
-            self._sparse = t
+    def sparse(self, idxs: [int]):
+        if len(idxs) == self.wbits:
+            self._sparse = torch.tensor(data=idxs, dtype=torch.int32, device=self.device)
+            # TODO Update self.coords to reflect the change here!
         else:
-            raise Exception('Tensor size mismatch. {} is expected.'.format(self.sparse.size()))
+            raise Exception('Tensor size mismatch. Size (1, {}) is expected'.format(self.wbits))
 
-    def view_dense(self, row: int = 64, col: int = 64):
-        if cuda.is_available():
-            return self.dense.type(cuda.ByteTensor).view((row, col))
+    @property
+    def coords(self):
+        return self._coords
+
+    @coords.setter
+    def coords(self):
+        pass
+
+    def dense(self, raw: bool = True):
+        self._dense = torch.tensor([0] * self.nbits, dtype=torch.bool, device=self.device)
+
+        if isinstance(self.sparse, cuda.IntTensor) or isinstance(self.sparse, torch.IntTensor):
+            self._dense = self._dense.scatter_(0, self.sparse.type(torch.int64), True)
         else:
-            return self.dense.type(torch.ByteTensor).view((row, col))
+            pass
 
-    def view_sparse(self, row: int = 9, col: int = 9):
-        return self.sparse.view((row, col))
+        if raw:
+            return self._dense
+        else:
+            return self._dense.type(torch.ByteTensor)
+
+    def view(self, format, rows, cols):
+        # TODO Implement to graphically display the SDR formats
+        pass
 
 
 class SDR(SparseDistributedRepresentation):
