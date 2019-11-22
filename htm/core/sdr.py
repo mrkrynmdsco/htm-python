@@ -1,6 +1,8 @@
 
 import torch
 import torch.cuda as cuda
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 def compute_nbits(n: int) -> int:
@@ -94,7 +96,8 @@ class SparseDistributedRepresentation:
             self._sparse = torch.tensor(data=idxs, dtype=torch.int32, device=self.device)
             # TODO Update self.coords to reflect the change here!
         else:
-            raise Exception('Tensor size mismatch. Size (1, {}) is expected'.format(self.wbits))
+            raise Exception('Element size mismatch. Size ({}) is expected. \
+                ({}) provided'.format(self.wbits, len(idxs)))
 
     @property
     def coords(self):
@@ -102,10 +105,11 @@ class SparseDistributedRepresentation:
 
     @coords.setter
     def coords(self):
-        pass
+        # TODO Implement this!
+        raise NotImplementedError
 
     def dense(self, raw: bool = True):
-        self._dense = torch.tensor([0] * self.nbits, dtype=torch.bool, device=self.device)
+        self._dense = torch.tensor([False] * self.nbits, dtype=torch.bool, device=self.device)
 
         if isinstance(self.sparse, cuda.IntTensor) or isinstance(self.sparse, torch.IntTensor):
             self._dense = self._dense.scatter_(0, self.sparse.type(torch.int64), True)
@@ -117,9 +121,16 @@ class SparseDistributedRepresentation:
         else:
             return self._dense.type(torch.ByteTensor)
 
-    def view(self, format, rows, cols):
-        # TODO Implement to graphically display the SDR formats
-        pass
+    def view(self, form: str = 'dense', dims: tuple = (64, 64), figsize: tuple = (8, 8)):
+        if 'dense' == form:
+            sdr = self.dense(raw=False).view(dims)
+
+        elif 'sparse' == form:
+            sdr = self.sparse.view(dims)
+
+        plt.figure(figsize=figsize)
+        plt.imshow(sdr.numpy())
+        plt.show()
 
 
 class SDR(SparseDistributedRepresentation):
