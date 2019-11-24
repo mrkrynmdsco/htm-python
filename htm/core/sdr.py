@@ -30,16 +30,21 @@ class SparseDistributedRepresentation:
 
     Attributes
     ----------
-    nbits : int
+    nbits: int
         - number of bits in the vector
-    sparsity : float
+    sparsity: float
         - sparse percentage
-    wbits : int
-        - number of active bits
+    wbits: int
+        - number of active
+
+    sparse: torch.IntTensor
+        - tensor of indices of each active bits
+    
 
     Methods
     -------
-    to_sdr()
+    dense()
+    view()
 
     """
 
