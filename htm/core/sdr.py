@@ -1,7 +1,6 @@
 
 import torch
 import torch.cuda as cuda
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -39,7 +38,7 @@ class SparseDistributedRepresentation:
 
     sparse: torch.IntTensor
         - tensor of indices of each active bits
-    
+
 
     Methods
     -------
@@ -139,5 +138,5 @@ class SparseDistributedRepresentation:
 
 
 class SDR(SparseDistributedRepresentation):
-    """Alias for SparseDistributedRepresentation Class"""
+    """ Alias for HTM SparseDistributedRepresentation Class """
     pass
