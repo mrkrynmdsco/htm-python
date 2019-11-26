@@ -1,34 +1,38 @@
 
-class InputSpace:
-    """ HTM Input Space """
-
-    def __init__(self):
-        self._dimension = None
-
-
 class Connections:
     pass
 
 
-class SpatialPooler:
-    """ HTM Spatial Pooler """
+class Memory:
+    """ HTM Memory """
 
     def __init__(self):
         self._input_space = None
         self._column_dims = None
 
+
+class SpatialMemory(Memory):
+    """ HTM Spatial Memory """
+
+    def __init__(self):
+        super().__init__()
         self._potential_rad = None
         self._potential_pct = None
 
 
-class TemporalMemory:
-    pass
+class TemporalMemory(Memory):
+    """ HTM Temporal Memory """
+
+    def __init__(self):
+        super().__init__()
+        pass
 
 
-class SP(SpatialPooler):
-    """ Alias for HTM SpatialPooler Class """
+class SM(SpatialMemory):
+    """ Alias for HTM SpatialMemory Class """
     pass
 
 
 class TM(TemporalMemory):
     """ Alias for HTM TemporalMemory Class """
+    pass

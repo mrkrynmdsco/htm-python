@@ -2,24 +2,30 @@
 from htm.core.neocortex import Cell
 
 
+class InputSpace:
+    """ HTM Input Space """
+
+    def __init__(self):
+        self._dimension = None
+
+
 class Layer:
+    """ HTM Layer """
     pass
 
 
 class Column:
-    pass
+    """ HTM Column """
 
-
-class MiniColumn(Column):
-    pass
-
-
-class MacroColumn(Column):
-    pass
+    def __init__(self):
+        self._layers = None
 
 
 class Region:
-    pass
+    """ HTM Region """
+
+    def __init__(self):
+        self._dimension = None
 
 
 class Network:

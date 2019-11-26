@@ -6,6 +6,7 @@ class Synapse:
     """ Learned Connection """
 
     def __init__(self):
+        self._state = None  # ['connected', 'unconnected', 'potential']
         self._permanence = None
 
 
@@ -25,3 +26,8 @@ class Cell:
         self._proximal = None  # proximal segments (feedforward)
 
         self._state = None  # ['active', 'inactive', 'predicted']
+
+
+class Grid:
+    """ Grid Cell """
+    pass
