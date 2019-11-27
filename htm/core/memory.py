@@ -1,14 +1,17 @@
 
-class Connections:
-    pass
-
-
 class Memory:
     """ HTM Memory """
 
     def __init__(self):
-        self._input_space = None
-        self._column_dims = None
+        self._size = None
+
+
+class InputMemory(Memory):
+    """ HTM Input Memory """
+
+    def __init__(self):
+        super().__init__()
+        pass
 
 
 class SpatialMemory(Memory):
@@ -16,8 +19,7 @@ class SpatialMemory(Memory):
 
     def __init__(self):
         super().__init__()
-        self._potential_rad = None
-        self._potential_pct = None
+        pass
 
 
 class TemporalMemory(Memory):
@@ -26,6 +28,11 @@ class TemporalMemory(Memory):
     def __init__(self):
         super().__init__()
         pass
+
+
+class IM(InputMemory):
+    """ Alias for InputMemory Class """
+    pass
 
 
 class SM(SpatialMemory):
