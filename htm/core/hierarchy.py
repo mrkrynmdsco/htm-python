@@ -18,6 +18,13 @@ class Column:
         self._potential_pct = None
 
 
+class Layer:
+    """ HTM Layer """
+
+    def __init__(self):
+        pass
+
+
 class Region:
     """ HTM Region """
 
