@@ -6,77 +6,30 @@ class Synapse:
     """ HTM Synapse """
 
     def __init__(self):
+        self._learn_rate = 0.01
+        self._threshold = 0.2
         self._permanence = 0.0
-        self._learn_rate = 0.05
-        self._threshold = 0.5
-        self._is_connected = False
-
-    def update(self):
-        if self._threshold <= self._permanence:
-            self._is_connected = True
-
-            if 1.0 < self._permanence:
-                self._permanence = 1.0
-
-        elif self._threshold > self._permanence:
-            self._is_connected = False
-
-            if 0.0 > self._permanence:
-                self._permanence = 0.0
-
-        else:
-            self._is_connected = False
-
-    def increment(self):
-        self._permanence = self._permanence + self._learn_rate
-        self.update()
-
-    def decrement(self):
-        self._permanence = self._permanence - self._learn_rate
-        self.update()
 
 
-class Segment:
-    """ HTM Segment """
+class Dendrite:
+    """ HTM Dendrite """
 
-    def __init__(self, nsyns: int, feed: SDR):
-        self._synapses = [Synapse] * nsyns  # [potential and functional synapses]
-        self._feed = feed
+    def __init__(self):
+        self._feed = None
+        self._synapses = None
 
 
 class Cell:
     """ HTM Cell """
 
-    def __init__(self):
-        self._apical = []  # apical segments (feed-back)
-        self._distal = []  # distal segments (context feed)
-        self._proximal = [None]  # proximal segments (feed-forward)
+    def __init__(self, idx: int):
+        self._idx = None
+        self._proximal = None
+        self._apical = None
+        self._distal_input = None
+        self._distal_output = None
 
-        self._state = 'inactive'  # ['active', 'inactive', 'predicted']
-
-    @property
-    def state(self):
-        return self._state
-
-    @state.setter
-    def state(self, s: str):
-        if s in ['active', 'inactive', 'predicted']:
-            self._state = s
-        else:
-            raise Exception('Invalid cell state.')
-
-    def set_segment(self, segment: Segment, segtype: str):
-        if 'proximal' == segtype:
-            self._proximal[0] = segment  # only one (1) segment allowed
-
-        elif 'distal' == segtype:
-            self._distal.append(segment)
-
-        elif 'apical' == segtype:
-            self._apical.append(segment)
-
-        else:
-            raise Exception('Invalid segment type.')
+        self._state = 'inactive'  # [active, inactive, predicted]
 
 
 class Grid:

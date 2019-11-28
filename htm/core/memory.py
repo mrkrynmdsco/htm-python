@@ -4,6 +4,7 @@ class Memory:
 
     def __init__(self):
         self._size = None
+        self._pooler = None
 
 
 class InputMemory(Memory):
