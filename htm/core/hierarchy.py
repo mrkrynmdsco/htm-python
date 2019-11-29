@@ -1,32 +1,41 @@
 
-from htm.core.neocortex import Cell
-from htm.core.memory import InputMemory
-from htm.core.memory import SpatialMemory
-from htm.core.memory import TemporalMemory
+from htm.core.common import htmObj
+from htm.core.neocortex import Neuron
 
 
-def _create_cells(self, n: int):
-    cells = []
-    for idx in range(self._ncells):
-        cells.append(Cell(idx))
-    return cells
+def _populate_column(ncells: int):
+    c = []
+    for i in range(ncells):
+        c.append(Neuron(idx=i))
+    return c
 
 
-class Column:
-    """ HTM Column """
+class Column(htmObj):
+    """ HTM Column (mini-column)"""
 
-    def __init__(self, ncells: int):
+    def __init__(self, idx: int = 0):
+        super().__init__(idx=idx)
 
-        self._idx = None
+        self._cells = []
 
-        self._ncells = ncells
-        self._cells = _create_cells(n=self._ncells)
+    def boost(self):
+        pass
 
-        self._is_active = False
-        self._is_burst = False
+    def inhibit(self):
+        pass
 
-        self._potential_rad = None
-        self._potential_pct = None
+    def cells_sdr(self):
+        pass
+
+    def update(self):
+        pass
+
+
+class HyperColumn(htmObj):
+    """ HTM Hyper Column (macro-column)"""
+
+    def __init__(self, ncolumns: int):
+        pass
 
 
 class Layer:
@@ -40,9 +49,10 @@ class Region:
     """ HTM Region """
 
     def __init__(self):
-        self._input_mem = InputMemory()  # Distributed to columns
-        self._spatial_mem = SpatialMemory()  # Column level
-        self._temporal_mem = TemporalMemory()  # Cell level
+        self._columns = []
+
+    def cols_sdr(self):
+        pass
 
 
 class Network:

@@ -1,4 +1,9 @@
 
+class Booster:
+    """ HTM Cell Boost Algorithm """
+    pass
+
+
 class SpatialPooler:
     """ HTM Spatial Pooling Algorithm """
     pass
