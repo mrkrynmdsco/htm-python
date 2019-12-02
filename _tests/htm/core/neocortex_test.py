@@ -51,6 +51,20 @@ class Synapse_UseTests(ut.TestCase):
         self.syn.permanence = -0.9
         self.assertEqual(self.syn.permanence, 0.0)
 
+    def test_increase_permanence(self):
+        # HTM-FR_SYN_04
+        self.syn.learn_rate = 0.2
+        self.syn.permanence = 0.6
+        self.syn.increase_permanence()
+        self.assertEqual(self.syn.permanence, 0.8)
+
+    def test_decrease_permanence(self):
+        # HTM-FR_SYN_04
+        self.syn.learn_rate = 0.4
+        self.syn.permanence = 0.6
+        self.syn.decrease_permanence()
+        self.assertEqual(self.syn.permanence, 0.2)
+
     def test_set_connection_thres(self):
         # HTM-FR_SYN_05
         self.syn.connection_threshold = 0.4

@@ -3,6 +3,8 @@ from htm.core.common import htmObj
 from htm.core.common import htmState
 
 
+ROUND_DP = 9
+
 SYN_DEF_LR = 0.03   # Synapse default learn rate
 SYN_DEF_CT = 0.6    # Synapse default connection threshold
 SYN_MIN_CT = 0.3    # Synapse minimum connection threshold
@@ -93,10 +95,15 @@ class Synapse (htmObj):
 
     # METHODS
     # -------
+    def increase_permanence(self):
+        self.permanence = round((self.permanence + self.learn_rate), ROUND_DP)
+
+    def decrease_permanence(self):
+        self.permanence = round((self.permanence - self.learn_rate), ROUND_DP)
 
     def update(self):
-        # permanence
-        # state
+        # update permanence
+        # update state
         pass
 
 
