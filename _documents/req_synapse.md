@@ -58,8 +58,8 @@ input stream, then we will find many valid synapses with high permanence.
     > `1.0` -- (*maximum*) represents a potential synapse that is fully connected  
 
 ##### HTM-FR-SYN_04
-- [ ] The synapse object's **permanence** value shall be able to be *incremented* within its range.
-- [ ] The synapse object's **permanence** value shall be able to be *decremented* within its range.
+- [x] The synapse object's **permanence** value shall be able to be *incremented* within its range.
+- [x] The synapse object's **permanence** value shall be able to be *decremented* within its range.
 
 ##### HTM-FR-SYN_05
 - [x] A synapse object shall have a configurable scalar property that represents its **connection threshold** that shall be used as a measure of permanence status.
