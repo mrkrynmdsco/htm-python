@@ -55,7 +55,7 @@ input stream, then we will find many valid synapses with high permanence.
 
     > `0.0` -- (*minimum*, *default*) represents a potential synapse which is not valid and has not progressed at all
 
-    > `1.0` -- (*maximum*) represents a potential synapse that is fully connected  
+    > `1.0` -- (*maximum*) represents a potential synapse that is fully connected
 
 ##### HTM-FR-SYN_04
 - [x] The synapse object's **permanence** value shall be able to be *incremented* within its range.
@@ -70,31 +70,31 @@ input stream, then we will find many valid synapses with high permanence.
 ##### HTM-FR-SYN_06
 - [x] A synapse object shall be able to change its **state** depending on the value of its **permanence** and the **activation threshold**.
 
-    > `if (permanence >= activation_threshold) then state = CONNECTED`  
+    > `if (permanence >= activation_threshold) then state = CONNECTED`
 
-    > `if (permanence < activation_threshold) then state = UNCONNECTED`  
+    > `if (permanence < activation_threshold) then state = UNCONNECTED`
 
 ##### HTM-FR-SYN_07
 - [x] A synapse object shall have a configurable scalar property that represents its **learning rate** that serves as a parameter of how fast the object will reach the **activation threshold** of **permanence** and become `CONNECTED`.
 
-    > `0.0 <= learning_rate >= 1.0`  
+    > `0.0 <= learning_rate >= 1.0`
     > `0.03` -- *default*
 
 ##### HTM-FR-SYN_08
-- [x] A synapse object shall be able to store the *cell index* (**source index**) where it originates. 
+- [x] A synapse object shall be able to store the *cell index* (**input index**) where it originates.
 
     > `None` -- *default*
 
 #### HTM-FR-SYN_09
-- [x] A synapse object shall be able to store the *cell state* (**source signal**) where it originates.
+- [x] A synapse object shall be able to store the *cell state* (**input signal**) where it originates.
 
     > `None` -- *default*
 
 #### HTM-FR-SYN_10
-- [x] A synapse object shall be able to scan and update its **source index** and **source signal**.
+- [ ] A synapse object shall be able to read and update its **input index** and **input signal**.
 
 ##### HTM-FR-SYN_11
-- [x] A synapse object shall have a common method where it can **update** all its adjustable parameters (e.g. *state*, *source*) every cycle during runtime.
+- [x] A synapse object shall have a common method where it can **update** all its adjustable parameters (e.g. *state*, *input*) every cycle during runtime.
 
 
 

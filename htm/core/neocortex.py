@@ -35,8 +35,8 @@ class Synapse (htmObj):
         self._lrate = SYN_DEF_LR
         self._thres = SYN_DEF_AT
         self._perma = SYN_MIN_PERM
-        self._src_idx = None
-        self._src_sig = None
+        self._inputidx = None
+        self._inputsig = None
 
     # GETTER FUNCTIONS
     # ----------------
@@ -58,8 +58,12 @@ class Synapse (htmObj):
         return self._perma
 
     @property
-    def source(self):
-        return self._src_idx, self._src_sig
+    def input_index(self):
+        return self._inputidx
+
+    @property
+    def input_signal(self):
+        return self._inputsig
 
     # SETTER FUNCTIONS
     # ----------------
@@ -101,6 +105,14 @@ class Synapse (htmObj):
             if SYN_MIN_PERM > p:
                 self._perma = SYN_MIN_PERM
 
+    @input_index.setter
+    def input_index(self, idx: int):
+        self._inputidx = idx
+
+    @input_signal.setter
+    def input_signal(self, sig):
+        self._inputsig = sig
+
     # METHODS
     # -------
     def increase_permanence(self):
@@ -109,8 +121,10 @@ class Synapse (htmObj):
     def decrease_permanence(self):
         self.permanence = round((self.permanence - self.learn_rate), ROUND_DP)
 
-    def scan_source(self):
-        pass
+    def read_input(self):
+        # scan the state of the input
+        # store the state of the input
+        raise NotImplementedError
 
     def update_state(self):
         if self.permanence >= self.activation_threshold:
@@ -119,6 +133,7 @@ class Synapse (htmObj):
             self.state = UNCONNECTED
 
     def update(self):
+        # self.read_input()
         self.update_state()
 
 
@@ -179,12 +194,15 @@ class Cell (htmObj):
     # ----------------
 
     @activation_threshold.setter
-    def activation_threshold(self, t: float):
-        self._thres = t
+    def activation_threshold(self, thres: float):
+        self._thres = thres
 
     @state.setter
     def state(self, s: CellState):
-        self._state = s
+        if s in [INACTIVE, ACTIVE, PREDICTIVE]:
+            self._state = s
+        else:
+            raise Exception('Unknown Cell state being set.')
 
 
 class Neuron (Cell):

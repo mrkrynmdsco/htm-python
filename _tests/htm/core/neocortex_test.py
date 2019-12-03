@@ -30,9 +30,13 @@ class Synapse_InitTests(ut.TestCase):
         # HTM-FR_SYN_07
         self.assertEqual(self.syn.learn_rate, 0.03)
 
-    def test_default_source(self):
+    def test_default_input_index(self):
         # HTM-FR_SYN_08
-        self.assertTupleEqual(self.syn.source, (None, None))
+        self.assertEqual(self.syn.input_index, None)
+
+    def test_default_input_signal(self):
+        # HTM-FR_SYN_09
+        self.assertEqual(self.syn.input_signal, None)
 
 
 class Synapse_UseTests(ut.TestCase):

@@ -21,16 +21,20 @@ cell’s predictive state is the logical OR operation of several constituent thr
 
 ##### HTM-FR-DEN_03
 - [ ] A dendrite object shall have a configurable scalar property that represents the *maximum number of synapses* allowed to connect.
+
     > `16` -- *default*
 
 ##### HTM-FR-DEN_04
-- [ ] A dendrite object shall be able to change its state to `ON` whenever there is enough number of active synapse that reach or exceeds its **activation threshold**
+- [ ] A dendrite object shall be able to change its state to `ON` whenever there is enough number of active synapses reach or exceeds its **activation threshold**
 
 ##### HTM-FR-DEN_05
 - [ ] A dendrite object shall be able to remember the **potential synapses** that caused it to become `ON`.
 
 ##### HTM-FR-DEN_06
 - [ ] A dendrite object shall be able to initiate an increment or decrement of each potential synapse's permanence.
+
+##### HTM-FR-DEN_07
+- [ ] A dendrite object shall be able to initiate the update of its synapses.
 
 
 
