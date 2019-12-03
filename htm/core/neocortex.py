@@ -1,17 +1,28 @@
 
 from htm.core.common import htmObj
-from htm.core.common import htmState
+from htm.core.common import SynapseState
+from htm.core.common import DendriteState
+from htm.core.common import CellState
 
-
-ROUND_DP = 9
 
 SYN_DEF_LR = 0.03   # Synapse default learn rate
-SYN_DEF_CT = 0.6    # Synapse default connection threshold
-SYN_MIN_CT = 0.3    # Synapse minimum connection threshold
-SYN_MAX_CT = 0.75   # Synapse maximum connection threshold
-
+SYN_DEF_AT = 0.6    # Synapse default activation threshold
+SYN_MIN_AT = 0.3    # Synapse minimum activation threshold
+SYN_MAX_AT = 0.75   # Synapse maximum activation threshold
 SYN_MIN_PERM = 0.0  # Synapse minimum permanence (default)
 SYN_MAX_PERM = 1.0  # Synapse maximum pemanence
+
+UNCONNECTED = SynapseState.UNCONNECTED
+CONNECTED = SynapseState.CONNECTED
+
+OFF = DendriteState.OFF
+ON = DendriteState.ON
+
+INACTIVE = CellState.INACTIVE
+ACTIVE = CellState.ACTIVE
+PREDICTED = CellState.PREDICTED
+
+ROUND_DP = 9        # rounding-off decimal place
 
 
 class Synapse (htmObj):
@@ -20,11 +31,12 @@ class Synapse (htmObj):
     def __init__(self):
         super().__init__()
 
-        self._state = htmState.INACTIVE
-        self._learn_rate = SYN_DEF_LR
-        self._conn_thres = SYN_DEF_CT
-        self._permanence = SYN_MIN_PERM
-        self._conn_index = None
+        self._state = UNCONNECTED
+        self._lrate = SYN_DEF_LR
+        self._thres = SYN_DEF_AT
+        self._perma = SYN_MIN_PERM
+        self._src_idx = None
+        self._src_sig = None
 
     # GETTER FUNCTIONS
     # ----------------
@@ -35,26 +47,26 @@ class Synapse (htmObj):
 
     @property
     def learn_rate(self):
-        return self._learn_rate
+        return self._lrate
 
     @property
-    def connection_threshold(self):
-        return self._conn_thres
+    def activation_threshold(self):
+        return self._thres
 
     @property
     def permanence(self):
-        return self._permanence
+        return self._perma
 
     @property
-    def connection_index(self):
-        return self._conn_index
+    def source(self):
+        return self._src_idx, self._src_sig
 
     # SETTER FUNCTIONS
     # ----------------
 
     @state.setter
-    def state(self, s: htmState):
-        if s in [htmState.INACTIVE, htmState.ACTIVE]:
+    def state(self, s: SynapseState):
+        if s in [UNCONNECTED, CONNECTED]:
             self._state = s
         else:
             raise Exception('Unknown Synapse state being set.')
@@ -62,36 +74,32 @@ class Synapse (htmObj):
     @learn_rate.setter
     def learn_rate(self, lr: float):
         if SYN_MIN_PERM <= lr <= SYN_MAX_PERM:
-            self._learn_rate = lr
+            self._lrate = lr
         else:
             if SYN_MAX_PERM < lr:
-                self.learn_rate = SYN_MAX_PERM
+                self._lrate = SYN_MAX_PERM
             if SYN_MIN_PERM > lr:
-                self.learn_rate = SYN_MIN_PERM
+                self._lrate = SYN_MIN_PERM
 
-    @connection_threshold.setter
-    def connection_threshold(self, ct: float):
-        if SYN_MIN_CT <= ct <= SYN_MAX_CT:
-            self._conn_thres = ct
+    @activation_threshold.setter
+    def activation_threshold(self, thres: float):
+        if SYN_MIN_AT <= thres <= SYN_MAX_AT:
+            self._thres = thres
         else:
-            if SYN_MAX_CT < ct:
-                self._conn_thres = SYN_MAX_CT
-            if SYN_MIN_CT > ct:
-                self._conn_thres = SYN_MIN_CT
+            if SYN_MAX_AT < thres:
+                self._thres = SYN_MAX_AT
+            if SYN_MIN_AT > thres:
+                self._thres = SYN_MIN_AT
 
     @permanence.setter
     def permanence(self, p: float):
         if SYN_MIN_PERM <= p <= SYN_MAX_PERM:
-            self._permanence = p
+            self._perma = p
         else:
             if SYN_MAX_PERM < p:
-                self._permanence = SYN_MAX_PERM
+                self._perma = SYN_MAX_PERM
             if SYN_MIN_PERM > p:
-                self._permanence = SYN_MIN_PERM
-
-    @connection_index.setter
-    def connection_index(self, ci: int):
-        self._conn_index = ci
+                self._perma = SYN_MIN_PERM
 
     # METHODS
     # -------
@@ -101,38 +109,54 @@ class Synapse (htmObj):
     def decrease_permanence(self):
         self.permanence = round((self.permanence - self.learn_rate), ROUND_DP)
 
-    def update(self):
-        # update permanence
-        # update state
+    def scan_source(self):
         pass
 
+    def update_state(self):
+        if self.permanence >= self.activation_threshold:
+            self.state = CONNECTED
+        else:
+            self.state = UNCONNECTED
 
-class Dendrite:
+    def update(self):
+        self.update_state()
+
+
+class Dendrite (htmObj):
     """ HTM Dendrite """
 
-    def __init__(self):
-        self._is_active = False
+    def __init__(self, nsynapse: int):
+        super().__init__()
+
+        self._state = INACTIVE
         self._thres = 12
-        self._synapses = []
+        self._synapses = None
 
     # GETTER FUNCTIONS
     # ----------------
 
     @property
-    def is_active(self):
-        return self._is_active
+    def state(self):
+        return self._state
+
+    # SETTER FUNCTIONS
+    # ----------------
+
+    @state.setter
+    def state(self, s: DendriteState):
+        if s in [OFF, ON]:
+            self._state = s
+        else:
+            raise Exception('Unknown Dendrite state being set.')
 
     # METHODS
     # -------
-
-    def syns_sdr(self):
-        pass
 
     def update(self):
         pass
 
 
-class Cell(htmObj):
+class Cell (htmObj):
     """ HTM Cell """
 
     def __init__(self, idx: int):
@@ -159,11 +183,11 @@ class Cell(htmObj):
         self._thres = t
 
     @state.setter
-    def state(self, s: htmState):
+    def state(self, s: CellState):
         self._state = s
 
 
-class Neuron(Cell):
+class Neuron (Cell):
     """ HTM Neuron Cell """
 
     def __init__(self, idx: int = 0):
@@ -174,7 +198,7 @@ class Neuron(Cell):
         self.tx_distals = []  # transmit-distal dendrites
         self.rx_distals = []  # recieve-distal dendrites
 
-        self.state = htmState().INACTIVE  # default cell state
+        self.state = CellState.INACTIVE  # default cell state
 
     def update(self):
         # Inactive

@@ -16,8 +16,10 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 ##### Neocortex
 - [ ] Synapse
 - [ ] Dendrite
+- [ ] Axon
 - [ ] Cell
-- [ ] Neuron
+- [ ] Neuron Cell
+- [ ] Grid Cell
 ##### Hierarchy
 - [ ] Column
 - [ ] HyperColumn
@@ -34,8 +36,8 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
 ##### --TBD--
-- [ ] Grid Cell
 - [ ] Visualization :wink:
   
 ### Encoders
-### Sensors
+### Receptors
+### Effectors

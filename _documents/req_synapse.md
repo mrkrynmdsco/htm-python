@@ -16,7 +16,7 @@ Further, we now know that entire synapses form and un-form rapidly. This
 flexibility represents a powerful form of learning and better explains the rapid
 acquisition of knowledge. A synapse can only form if an axon and a dendrite are
 within a certain distance, leading to the concept of *potential synapses*. With these
-assumptions, learning occurs largely by forming **valid** synapses from potential
+assumptions, learning occurs largely by forming *valid* synapses from potential
 synapses.
 
 Synapses on an HTM cell have a binary weight. There is nothing in the HTM model
@@ -46,9 +46,9 @@ input stream, then we will find many valid synapses with high permanence.
 ##### HTM-FR-SYN_02
 - [x] A synapse object shall have only two (2) states.
 
-    > `INACTIVE` -- (*default*) this value indicates that the object is *not active*
+    > `UNCONNECTED` -- (*default*) this value indicates that the object is *not connected*
 
-    > `ACTIVE` -- this value indicates that the object is *active*
+    > `CONNECTED` -- this value indicates that the object is *connected*
 
 ##### HTM-FR-SYN_03
 - [x] A synapse object shall have a scalar property that describe its **permanence** value.
@@ -62,34 +62,43 @@ input stream, then we will find many valid synapses with high permanence.
 - [x] The synapse object's **permanence** value shall be able to be *decremented* within its range.
 
 ##### HTM-FR-SYN_05
-- [x] A synapse object shall have a configurable scalar property that represents its **connection threshold** that shall be used as a measure of permanence status.
+- [x] A synapse object shall have a configurable scalar property that represents its **activation threshold** that shall be used as a measure of permanence status.
 
-    > `0.3 <= connection_threshold >= 0.75`  
+    > `0.3 <= activation_threshold >= 0.75`  
     > `0.6` -- *default*
 
 ##### HTM-FR-SYN_06
-- [ ] A synapse object shall be able to change its **state** depending on the value of its **permanence** and the **connection threshold**.
+- [x] A synapse object shall be able to change its **state** depending on the value of its **permanence** and the **activation threshold**.
 
-    > `if (permanence >= connection_threshold) then state = ACTIVE`  
+    > `if (permanence >= activation_threshold) then state = CONNECTED`  
 
-    > `if (permanence < connection_threshold) then state = INACTIVE`  
+    > `if (permanence < activation_threshold) then state = UNCONNECTED`  
 
 ##### HTM-FR-SYN_07
-- [x] A synapse object shall have a configurable scalar property that represents its **learning rate** that serves as a parameter of how fast the object will reach the **connecton threshold** of **permanence** and become `ACTIVE`.
+- [x] A synapse object shall have a configurable scalar property that represents its **learning rate** that serves as a parameter of how fast the object will reach the **activation threshold** of **permanence** and become `CONNECTED`.
 
     > `0.0 <= learning_rate >= 1.0`  
     > `0.03` -- *default*
 
 ##### HTM-FR-SYN_08
-- [x] A synapse object shall be able to store the index of the cell (**connection index**) where it is connected or trying to connect to.  
+- [x] A synapse object shall be able to store the *cell index* (**source index**) where it originates. 
 
     > `None` -- *default*
 
-##### HTM-FR-SYN_09
-- [ ] A synapse object shall be able to *update* all its adjustable parameters (e.g. *state*, *permanence*, *connection index*) during runtime.
+#### HTM-FR-SYN_09
+- [x] A synapse object shall be able to store the *cell state* (**source signal**) where it originates.
+
+    > `None` -- *default*
+
+#### HTM-FR-SYN_10
+- [x] A synapse object shall be able to scan and update its **source index** and **source signal**.
+
+##### HTM-FR-SYN_11
+- [x] A synapse object shall have a common method where it can **update** all its adjustable parameters (e.g. *state*, *source*) every cycle during runtime.
 
 
 
 
 #### References:
 * Hierarchical Temporal Memory including HTM Cortical Learning Algorithms, version [0.2.1](https://numenta.org/resources/HTM_CorticalLearningAlgorithms.pdf)
+* Biological and Machine Intelligence, Hawkins, J. et al. 2016, release [0.4](https://numenta.com/resources/biological-and-machine-intelligence/)
