@@ -43,58 +43,6 @@ input stream, then we will find many valid synapses with high permanence.
 ##### HTM-FR-SYN_01
 - [x] A synapse object shall be an instance of [HTM Object](./req_htmobject.md) class.
 
-##### HTM-FR-SYN_02
-- [x] A synapse object shall have only two (2) states.
-
-    > `UNCONNECTED` -- (*default*) this value indicates that the object is *not connected*
-
-    > `CONNECTED` -- this value indicates that the object is *connected*
-
-##### HTM-FR-SYN_03
-- [x] A synapse object shall have a scalar property that describe its **permanence** value.
-
-    > `0.0` -- (*minimum*, *default*) represents a potential synapse which is not valid and has not progressed at all
-
-    > `1.0` -- (*maximum*) represents a potential synapse that is fully connected
-
-##### HTM-FR-SYN_04
-- [x] The synapse object's **permanence** value shall be able to be *incremented* within its range.
-- [x] The synapse object's **permanence** value shall be able to be *decremented* within its range.
-
-##### HTM-FR-SYN_05
-- [x] A synapse object shall have a configurable scalar property that represents its **activation threshold** that shall be used as a measure of permanence status.
-
-    > `0.3 <= activation_threshold >= 0.75`  
-    > `0.6` -- *default*
-
-##### HTM-FR-SYN_06
-- [x] A synapse object shall be able to change its **state** depending on the value of its **permanence** and the **activation threshold**.
-
-    > `if (permanence >= activation_threshold) then state = CONNECTED`
-
-    > `if (permanence < activation_threshold) then state = UNCONNECTED`
-
-##### HTM-FR-SYN_07
-- [x] A synapse object shall have a configurable scalar property that represents its **learning rate** that serves as a parameter of how fast the object will reach the **activation threshold** of **permanence** and become `CONNECTED`.
-
-    > `0.0 <= learning_rate >= 1.0`
-    > `0.03` -- *default*
-
-##### HTM-FR-SYN_08
-- [x] A synapse object shall be able to store the *cell index* (**input index**) where it originates.
-
-    > `None` -- *default*
-
-#### HTM-FR-SYN_09
-- [x] A synapse object shall be able to store the *cell state* (**input signal**) where it originates.
-
-    > `None` -- *default*
-
-#### HTM-FR-SYN_10
-- [ ] A synapse object shall be able to read and update its **input index** and **input signal**.
-
-##### HTM-FR-SYN_11
-- [x] A synapse object shall have a common method where it can **update** all its adjustable parameters (e.g. *state*, *input*) every cycle during runtime.
 
 
 
