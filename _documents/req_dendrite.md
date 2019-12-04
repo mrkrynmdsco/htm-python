@@ -14,7 +14,7 @@ cell’s predictive state is the logical OR operation of several constituent thr
 ### Functional Requirements
 
 ##### HTM-FR-DEN_01
-- [x] A dendrite object shall inherit the [HTM Object](./req_htmobject.md) class.
+- [x] A dendrite object shall inherit the [BaseHTM](./req_basehtm.md) class.
 
 
 

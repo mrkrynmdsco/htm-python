@@ -1,22 +1,23 @@
 
-from htm.core.common import htmObj
-from htm.core.neocortex import Neuron
+from htm.core.cortex import BaseHTM
+from htm.core.cortex import Cell
 
 
-def _populate_column(ncells: int):
+def populate_column(ncells: int):
     c = []
     for i in range(ncells):
-        c.append(Neuron(idx=i))
+        n = Cell()
+        n.index = i
+        c.append(n)
     return c
 
 
-class Column(htmObj):
-    """ HTM Column (mini-column)"""
+class Column (BaseHTM):
+    """ HTM Column (mini-column) """
+    def __init__(self):
+        super().__init__()
 
-    def __init__(self, idx: int = 0):
-        super().__init__(idx=idx)
-
-        self._cells = []
+        self._cells = None
 
     def boost(self):
         pass
@@ -31,25 +32,22 @@ class Column(htmObj):
         pass
 
 
-class HyperColumn(htmObj):
-    """ HTM Hyper Column (macro-column)"""
-
-    def __init__(self, ncolumns: int):
-        pass
+class HyperColumn (BaseHTM):
+    """ HTM Hyper Column (macro-column) """
+    def __init__(self):
+        super().__init__()
 
 
 class Layer:
     """ HTM Layer """
-
     def __init__(self):
         pass
 
 
 class Region:
     """ HTM Region """
-
     def __init__(self):
-        self._columns = []
+        self._columns = None
 
     def cols_sdr(self):
         pass

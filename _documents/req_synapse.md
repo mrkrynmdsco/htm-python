@@ -41,7 +41,7 @@ input stream, then we will find many valid synapses with high permanence.
 ### Functional Requirements
 
 ##### HTM-FR-SYN_01
-- [x] A synapse object shall be an instance of [HTM Object](./req_htmobject.md) class.
+- [x] A synapse object shall be an instance of [BaseHTM](./req_basehtm.md) class.
 
 
 
