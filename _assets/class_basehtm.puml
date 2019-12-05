@@ -1,0 +1,23 @@
+
+@startuml BaseHTM
+class BaseHTM << base >>{
+    -_index: int
+    -_state: 
+    -_cfg: dict
+    __
+    .. Getter Functions ..
+    
+    +get_index()
+    +get_state()
+    +get_configs()
+    +get_config(key: str)
+
+    .. Setter Functions ..
+    
+    +set_index(i: int)
+    +set_state(s: )
+    +set_configs(cfg: dict)
+    +set_config(key: str, value)
+
+}
+@enduml
