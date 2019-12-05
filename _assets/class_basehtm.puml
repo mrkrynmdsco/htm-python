@@ -1,11 +1,12 @@
 
 @startuml BaseHTM
+scale 1.5
 class BaseHTM << base >>{
     -_index: int
     -_state: 
     -_cfg: dict
     __
-    .. Getter Functions ..
+    .. Getters Functions ..
     
     +get_index()
     +get_state()
