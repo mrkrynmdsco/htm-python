@@ -1,4 +1,7 @@
 
+from enum import Enum
+
+
 class BaseHTM:
     def __init__(self):
         self._index = None
@@ -30,49 +33,76 @@ class BaseHTM:
         self._cfg = cfg
 
 
+class StateHTM (Enum):
+    PREDICTED = -1
+    INACTIVE = False
+    ACTIVE = True
+
+
 class Synapse (BaseHTM):
     """ HTM Synapse """
     def __init__(self):
         super().__init__()
         self._cfg = {
             'learn_rate': 0.003,
+            'connect_threshold': 0.3,
             'min_permanence': 0.0,
             'max_permanence': 1.0,
         }
-        self._state = False
+        self._srcid = None
+        self._state = StateHTM.INACTIVE
+
+        self._isconn = False
         self._permanence = 0.0
 
     def isconnected(self):
-        if self.get_state():
-            return True
-        else:
-            return False
+        return self._isconn
+
+    def get_source_index(self):
+        return self._srcid
 
     def get_permanence(self):
         return self._permanence
 
-    def set_permanence(self, p: float):
-        MIN = self.get_config('min_permanence')
-        MAX = self.get_config('max_permanence')
+    def set_source_index(self, idx: int):
+        self._srcid = idx
 
-        if MIN <= p <= MAX:
+    def set_state(self, s: bool):
+        self._state = s
+
+    def set_permanence(self, p: float):
+        MIN_P = self.get_config('min_permanence')
+        MAX_P = self.get_config('max_permanence')
+
+        if MIN_P <= p <= MAX_P:
             self._permanence = p
-        elif MIN > p:
-            self._permanence = MIN
-        elif MAX < p:
-            self._permanence = MAX
+        elif MIN_P > p:
+            self._permanence = MIN_P
+        elif MAX_P < p:
+            self._permanence = MAX_P
         else:
             raise Exception('Invalid permanence value being set: {}'.format(p))
+
+    def _update_connection(self):
+        p = self.get_permanence()
+        t = self.get_config('connect_threshold')
+
+        if t <= p:
+            self._isconn = True
+        else:
+            self._isconn = False
 
     def increase_permanence(self):
         p = self.get_permanence()
         p = round(p + self.get_config('learn_rate'), 9)
         self.set_permanence(p)
+        self._update_connection()
 
     def decrease_permanence(self):
         p = self.get_permanence()
         p = round(p - self.get_config('learn_rate'), 9)
         self.set_permanence(p)
+        self._update_connection()
 
 
 class Dendrite (BaseHTM):

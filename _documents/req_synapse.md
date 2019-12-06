@@ -48,5 +48,7 @@ input stream, then we will find many valid synapses with high permanence.
 
 
 #### References:
-* Hierarchical Temporal Memory including HTM Cortical Learning Algorithms, version [0.2.1](https://numenta.org/resources/HTM_CorticalLearningAlgorithms.pdf)
-* Biological and Machine Intelligence, Hawkins, J. et al. 2016, release [0.4](https://numenta.com/resources/biological-and-machine-intelligence/)
+* Hierarchical Temporal Memory including HTM Cortical Learning Algorithms,  
+Version 0.2.1 https://numenta.org/resources/HTM_CorticalLearningAlgorithms.pdf
+* Hawkins, J. et al. 2016. Biological and Machine Intelligence.  
+Release 0.4. Accessed at http://numenta.com/biological-and-machine-intelligence/.
