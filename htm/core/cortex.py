@@ -32,11 +32,19 @@ class BaseHTM:
     def set_configs(self, cfg: dict):
         self._cfg = cfg
 
+    def update(self):
+        raise NotImplementedError
+
 
 class StateHTM (Enum):
     PREDICTED = -1
     INACTIVE = False
     ACTIVE = True
+
+
+PREDICTED = StateHTM.PREDICTED
+INACTIVE = StateHTM.INACTIVE
+ACTIVE = StateHTM.ACTIVE
 
 
 class Synapse (BaseHTM):
@@ -50,7 +58,7 @@ class Synapse (BaseHTM):
             'max_permanence': 1.0,
         }
         self._srcid = None
-        self._state = StateHTM.INACTIVE
+        self._state = INACTIVE
 
         self._isconn = False
         self._permanence = 0.0
@@ -67,7 +75,7 @@ class Synapse (BaseHTM):
     def set_source_index(self, idx: int):
         self._srcid = idx
 
-    def set_state(self, s: bool):
+    def set_state(self, s: StateHTM):
         self._state = s
 
     def set_permanence(self, p: float):
@@ -104,19 +112,43 @@ class Synapse (BaseHTM):
         self.set_permanence(p)
         self._update_connection()
 
+    def update(self):
+        # update the state of this synapse
+        # by calling a function (e.g. from a pooler)
+        # to fetch the current state of the cell (axon)
+        # connected to it
+        pass
+
 
 class Dendrite (BaseHTM):
     """ HTM Dendrite """
     def __init__(self):
         super().__init__()
+        self._cfg = {
+            'activate_threshold': 6,
+            'min_synapse': 9,
+            'max_synapse': 18,
+        }
 
         self._synapses = None
+        self._state = INACTIVE
+
+    def update(self):
+        pass
 
 
 class Cell (BaseHTM):
     """ HTM Cell """
     def __init__(self):
         super().__init__()
+        self._cfg = {
+            'min_distals': 2,
+            'max_distals': 12,
+        }
 
+        self._state = INACTIVE
         self._proximal = None
         self._distals = None
+
+    def update(self):
+        pass
