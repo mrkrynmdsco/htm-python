@@ -23,8 +23,8 @@ class BaseHTM:
     def set_index(self, i: int):
         self._index = i
 
-    def set_state(self, s):
-        raise NotImplementedError
+    def set_state(self, s: StateHTM):
+        self._state = s
 
     def set_config(self, key, value):
         self._cfg[key] = value
@@ -75,9 +75,6 @@ class Synapse (BaseHTM):
     def set_source_index(self, idx: int):
         self._srcid = idx
 
-    def set_state(self, s: StateHTM):
-        self._state = s
-
     def set_permanence(self, p: float):
         MIN_P = self.get_config('min_permanence')
         MAX_P = self.get_config('max_permanence')
@@ -91,15 +88,6 @@ class Synapse (BaseHTM):
         else:
             raise Exception('Invalid permanence value being set: {}'.format(p))
 
-    def _update_connection(self):
-        p = self.get_permanence()
-        t = self.get_config('threshold_connect')
-
-        if p >= t:
-            self._isconn = True
-        else:
-            self._isconn = False
-
     def increase_permanence(self):
         p = self.get_permanence()
         p = round(p + self.get_config('learn_rate'), 9)
@@ -111,6 +99,15 @@ class Synapse (BaseHTM):
         p = round(p - self.get_config('learn_rate'), 9)
         self.set_permanence(p)
         self._update_connection()
+
+    def _update_connection(self):
+        p = self.get_permanence()
+        t = self.get_config('threshold_connect')
+
+        if p >= t:
+            self._isconn = True
+        else:
+            self._isconn = False
 
     def update(self):
         # update the state of this synapse
