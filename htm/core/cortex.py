@@ -53,7 +53,7 @@ class Synapse (BaseHTM):
         super().__init__()
         self._cfg = {
             'learn_rate': 0.003,
-            'connect_threshold': 0.3,
+            'threshold_connect': 0.3,
             'min_permanence': 0.0,
             'max_permanence': 1.0,
         }
@@ -93,9 +93,9 @@ class Synapse (BaseHTM):
 
     def _update_connection(self):
         p = self.get_permanence()
-        t = self.get_config('connect_threshold')
+        t = self.get_config('threshold_connect')
 
-        if t <= p:
+        if p >= t:
             self._isconn = True
         else:
             self._isconn = False
@@ -125,16 +125,57 @@ class Dendrite (BaseHTM):
     def __init__(self):
         super().__init__()
         self._cfg = {
-            'activate_threshold': 6,
+            'threshold_active': 6,
             'min_synapse': 9,
             'max_synapse': 18,
         }
 
-        self._synapses = None
+        self._synapses = []
         self._state = INACTIVE
 
+    def get_synapses(self, s: StateHTM = None):
+        onsyns = []
+        offsyns = []
+
+        for s in self._synapses:
+            if ACTIVE ==  s.get_state():
+                onsyns.append(s)
+            if INACTIVE ==  s.get_state():
+                offsyns.append(s)
+
+        if None == s:
+            return onsyns, offsyns
+        if INACTIVE == s:
+            return offsyns
+        if ACTIVE == s:
+            return onsyns
+
+    def add_synapse(self, srcid):
+        MAX_NS = self.get_config('max_synapse')
+        nsyns = len(self.get_active_synapses())
+
+        if MAX_NS >= nsyns:
+            s = Synapse()
+            s.set_source_index(srcid)
+            self._synapse.append(s)
+
+    def del_synapse(self, idx):
+        raise NotImplementedError
+
+    def _update_state(self):
+        for s in self._synapses:
+            s.update()
+
+        n = len(self.get_synapses(s=ACTIVE))
+        t = self.get_config('threshold_active')
+
+        if n >= t:
+            self.set_state(s=ACTIVE)
+        else:
+            self.set_state(s=INACTIVE)
+
     def update(self):
-        pass
+        self._update_state()
 
 
 class Cell (BaseHTM):
@@ -148,7 +189,7 @@ class Cell (BaseHTM):
 
         self._state = INACTIVE
         self._proximal = None
-        self._distals = None
+        self._distals = []
 
     def update(self):
         pass

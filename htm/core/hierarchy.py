@@ -1,6 +1,12 @@
 
 from htm.core.cortex import BaseHTM
+from htm.core.cortex import (PREDICTED, INACTIVE, ACTIVE)
 from htm.core.cortex import Cell
+
+
+# PREDICTED = StateHTM.PREDICTED
+# INACTIVE = StateHTM.INACTIVE
+# ACTIVE = StateHTM.ACTIVE
 
 
 def populate_column(ncells: int):
@@ -17,7 +23,8 @@ class Column (BaseHTM):
     def __init__(self):
         super().__init__()
 
-        self._cells = None
+        self._state = INACTIVE
+        self._cells = []
 
     def boost(self):
         pass
