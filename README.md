@@ -13,7 +13,7 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 
 ##### Data
 - [ ] SDR (Sparse Distributed Representation)
-##### Neocortex
+##### Cortex
 - [ ] Synapse
 - [ ] Dendrite
 - [ ] Axon
@@ -21,6 +21,7 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 - [ ] Neuron Cell
 - [ ] Grid Cell
 ##### Hierarchy
+- [ ] Cell
 - [ ] Column
 - [ ] HyperColumn
 - [ ] Layer
