@@ -4,15 +4,14 @@ class Memory:
 
     def __init__(self):
         self._size = None
-        self._pooler = None
 
 
 class InputMemory(Memory):
     """ HTM Input Memory """
 
-    def __init__(self):
+    def __init__(self, nbits: int):
         super().__init__()
-        pass
+        self._size = nbits
 
 
 class SpatialMemory(Memory):

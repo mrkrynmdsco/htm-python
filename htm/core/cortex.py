@@ -1,5 +1,12 @@
 
+import random
 from enum import Enum
+
+
+class StateHTM (Enum):
+    PREDICTED = -1
+    INACTIVE = False
+    ACTIVE = True
 
 
 class BaseHTM:
@@ -34,12 +41,6 @@ class BaseHTM:
 
     def update(self):
         raise NotImplementedError
-
-
-class StateHTM (Enum):
-    PREDICTED = -1
-    INACTIVE = False
-    ACTIVE = True
 
 
 PREDICTED = StateHTM.PREDICTED
@@ -88,6 +89,15 @@ class Synapse (BaseHTM):
         else:
             raise Exception('Invalid permanence value being set: {}'.format(p))
 
+    def _update_connection(self):
+        p = self.get_permanence()
+        t = self.get_config('threshold_connect')
+
+        if p >= t:
+            self._isconn = True
+        else:
+            self._isconn = False
+
     def increase_permanence(self):
         p = self.get_permanence()
         p = round(p + self.get_config('learn_rate'), 9)
@@ -99,15 +109,6 @@ class Synapse (BaseHTM):
         p = round(p - self.get_config('learn_rate'), 9)
         self.set_permanence(p)
         self._update_connection()
-
-    def _update_connection(self):
-        p = self.get_permanence()
-        t = self.get_config('threshold_connect')
-
-        if p >= t:
-            self._isconn = True
-        else:
-            self._isconn = False
 
     def update(self):
         # update the state of this synapse
@@ -126,7 +127,6 @@ class Dendrite (BaseHTM):
             'min_synapse': 9,
             'max_synapse': 18,
         }
-
         self._synapses = []
         self._state = INACTIVE
 
@@ -135,12 +135,12 @@ class Dendrite (BaseHTM):
         offsyns = []
 
         for s in self._synapses:
-            if ACTIVE ==  s.get_state():
+            if ACTIVE == s.get_state():
                 onsyns.append(s)
-            if INACTIVE ==  s.get_state():
+            if INACTIVE == s.get_state():
                 offsyns.append(s)
 
-        if None == s:
+        if s is None:
             return onsyns, offsyns
         if INACTIVE == s:
             return offsyns
@@ -155,11 +155,13 @@ class Dendrite (BaseHTM):
             s = Synapse()
             s.set_source_index(srcid)
             self._synapse.append(s)
+        else:
+            raise Exception('Maximum number of synapse exceeded.')
 
     def del_synapse(self, idx):
         raise NotImplementedError
 
-    def _update_state(self):
+    def update(self):
         for s in self._synapses:
             s.update()
 
@@ -171,9 +173,6 @@ class Dendrite (BaseHTM):
         else:
             self.set_state(s=INACTIVE)
 
-    def update(self):
-        self._update_state()
-
 
 class Cell (BaseHTM):
     """ HTM Cell """
@@ -183,10 +182,6 @@ class Cell (BaseHTM):
             'min_distals': 2,
             'max_distals': 12,
         }
-
-        self._state = INACTIVE
         self._proximal = None
-        self._distals = []
-
-    def update(self):
-        pass
+        self._distals = None
+        self._state = INACTIVE

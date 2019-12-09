@@ -22,9 +22,16 @@ class Column (BaseHTM):
     """ HTM Column (mini-column) """
     def __init__(self):
         super().__init__()
+        self._cfg = {
+            'max_ncells': 16,
+            'min_ncells': 1,
+        }
 
         self._state = INACTIVE
         self._cells = []
+
+    def init_cells(self, ncells: int):
+        pass
 
     def boost(self):
         pass
