@@ -4,8 +4,9 @@
 This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s [NuPIC](https://github.com/numenta/nupic.core), with reference and adaptation of the [HTM-Community](https://numenta.org/)'s [fork](https://github.com/htm-community/htm.core).
 
 ## Purpose
-* To have a new and simple architectural design of the library for easy understanding, integration and portability.
-* To serve as a learning reference on the details of the [HTM Framework](https://numenta.com/blog/2019/01/16/the-thousand-brains-theory-of-intelligence/) concepts and [PyTorch](https://pytorch.org/) (if needed).
+* To have a new and simple Python library of the HTM Framework for easy usage, prototyping,  understanding, integration and portability.
+* To serve as a learning reference on the details of the [HTM Framework](https://numenta.com/blog/2019/01/16/the-thousand-brains-theory-of-intelligence/) concepts.
+* Possible usage of [PyTorch](https://pytorch.org/) (if needed).
 
 ## Features
 
@@ -38,7 +39,7 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 - [ ] Temporal Pooler
 ##### --TBD--
 - [ ] Visualization :wink:
-  
+
 ### Encoders
 ### Receptors
 ### Effectors
