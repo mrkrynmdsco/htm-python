@@ -14,7 +14,7 @@ INACTIVE = StateHTM.INACTIVE
 ACTIVE = StateHTM.ACTIVE
 
 
-class BaseHTM:
+class BaseHTM (object):
     def __init__(self):
         self._index = None
         self._state = None
@@ -46,3 +46,21 @@ class BaseHTM:
 
     def update(self):
         raise NotImplementedError
+
+
+class Synapse (BaseHTM):
+    pass
+
+
+class Segment (BaseHTM):
+    pass
+
+
+class Cell (BaseHTM):
+    pass
+
+
+class Column (BaseHTM):
+    """ HTM Column (mini-column) """
+    def __init__(self):
+        super().__init__()

@@ -6,9 +6,20 @@ class Booster:
 
 class SpatialPooler:
     """ HTM Spatial Pooling Algorithm """
-    pass
+    def __init__():
+        pass
+
+    def overlap(self):
+        pass
+
+    def inhibit(self):
+        pass
+
+    def learn(self):
+        pass
 
 
 class TemporalPooler:
     """ HTM Temporal Pooling Algorithm """
-    pass
+    def __init__(self):
+        pass

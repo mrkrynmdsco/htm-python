@@ -6,12 +6,9 @@ class Memory:
     """ HTM Memory """
 
     def __init__(self):
-        self._cfg = {}
         self._size = None
         self._pooler = None
-
-    def cfg(self, key):
-        return self._cfg[key]
+        self._cfg = {}
 
     def size(self):
         return self._size
@@ -19,14 +16,17 @@ class Memory:
     def pooler(self):
         return self._pooler
 
-    def set_cfg(self, key, value):
-        self._cfg[key] = value
+    def cfg(self, key):
+        return self._cfg[key]
 
     def set_size(self, size):
         self._size = size
 
     def set_pooler(self, pooler):
         self._pooler = pooler
+
+    def set_cfg(self, key, value):
+        self._cfg[key] = value
 
     def compute(self, input, learn, output):
         raise NotImplementedError
@@ -57,7 +57,7 @@ class SpatialMemory (Memory):
             'permanence_decrement': 0.01,
             'min_overlap_pct_duty': 0.001,
             'duty_cycle_period': 1000,
-            'boost_strength': 0.0,
+            'boost_strength': 1.0,
             'seed': 1,
             'verbosity': 0,
             'wrap_around': True
@@ -71,18 +71,3 @@ class TemporalMemory (Memory):
     def __init__(self):
         super().__init__()
         pass
-
-
-class IM (InputMemory):
-    """ Alias for InputMemory Class """
-    pass
-
-
-class SM (SpatialMemory):
-    """ Alias for HTM SpatialMemory Class """
-    pass
-
-
-class TM (TemporalMemory):
-    """ Alias for HTM TemporalMemory Class """
-    pass

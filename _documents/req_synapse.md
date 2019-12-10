@@ -1,12 +1,12 @@
 
-# Column
+# Synapse
 
 ### Description
 
 ### Functional Requirements
 
-##### HTM-FR-COL_01
-- [ ] A column object shall
+##### HTM-FR-SYN_01
+- [ ] A Synapse object shall
 
 #### References:
 * Hierarchical Temporal Memory including HTM Cortical Learning Algorithms,

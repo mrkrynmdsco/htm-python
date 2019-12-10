@@ -1,12 +1,15 @@
 
 # Hierarchical Temporal Memory in Python
 ## Overview
-This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s [NuPIC](https://github.com/numenta/nupic.core), with reference and adaptation of the [HTM-Community](https://numenta.org/)'s [fork](https://github.com/htm-community/htm.core).
+This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s [NuPIC](https://github.com/numenta/nupic.core).
+
+With reference and adaptation of the following:
+* [HTM-Community](https://numenta.org/)'s [htm.core](https://github.com/htm-community/htm.core)
+* [James Mnatzaganian](https://techtorials.me/)'s [work](https://github.com/tehtechguy/mHTM) and his [thesis](https://scholarworks.rit.edu/theses/9012/)
 
 ## Purpose
-* To have a new and simple Python library of the HTM Framework for easy usage, prototyping,  understanding, integration and portability.
+* To have a new and simple Python library based on the HTM Framework for easy usage, prototyping,  understanding, integration and portability.
 * To serve as a learning reference on the details of the [HTM Framework](https://numenta.com/blog/2019/01/16/the-thousand-brains-theory-of-intelligence/) concepts.
-* Possible usage of [PyTorch](https://pytorch.org/) (if needed).
 
 ## Features
 
@@ -16,17 +19,14 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 - [ ] SDR (Sparse Distributed Representation)
 ##### Cortex
 - [ ] Synapse
-- [ ] Dendrite
-- [ ] Axon
-- [ ] Cell
-- [ ] Neuron Cell
-- [ ] Grid Cell
-##### Hierarchy
+- [ ] Segment
 - [ ] Cell
 - [ ] Column
-- [ ] HyperColumn
-- [ ] Layer
+- [ ] Grid Cell
+##### Hierarchy
 - [ ] Region
+- [ ] Layer
+- [ ] HyperColumn
 - [ ] Network
 ##### Memory
 - [ ] Spatial Memory
@@ -37,7 +37,7 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 - [ ] Encoder
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
-##### --TBD--
+##### --TBDs--
 - [ ] Visualization :wink:
 
 ### Encoders
