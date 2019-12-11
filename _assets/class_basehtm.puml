@@ -1,12 +1,20 @@
 
 @startuml BaseHTM
 scale 1.5
-class BaseHTM << base >>{
+skinparam class {
+    borderColor DimGray
+    fontName Roboto
+    fontStyle bold
+    attributeFontName Ubuntu Mono
+    attributeFontSize 10
+}
+
+class BaseHTM {
     -_index: int
     -_state: 
     -_cfg: dict
     __
-    .. Getters Functions ..
+    .. Getter Functions ..
     
     +get_index()
     +get_state()
