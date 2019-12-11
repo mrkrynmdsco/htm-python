@@ -64,6 +64,10 @@ class SpatialMemory (Memory):
         }
         self._pooler = SpatialPooler()
 
+    @property
+    def pooler(self):
+        return self._pooler
+
 
 class TemporalMemory (Memory):
     """ HTM Temporal Memory """

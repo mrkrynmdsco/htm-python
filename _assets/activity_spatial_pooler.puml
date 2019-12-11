@@ -10,19 +10,18 @@ skinparam {
     partitionBackgroundColor LightGray
     partitionBorderThickness 1
     noteFontSize 10
-    noteFontStyle italic
-    noteBorderColor Gold
+    noteBorderColor GoldenRod
     noteBorderThickness 2
     noteBackgroundColor LemonChiffon
 }
 skinparam activity {
     arrowColor DarkRed
-    borderColor GoldenRod
+    borderColor Ivory
     borderThickness 1.5
-    backgroundColor Ivory
+    backgroundColor Gold
 
-    diamondBorderColor Ivory
-    diamondBackgroundColor Gold
+    diamondBorderColor GoldenRod
+    diamondBackgroundColor Ivory
 }
 
 title Spatial Pooling Algorithm\n\n
@@ -30,29 +29,31 @@ title Spatial Pooling Algorithm\n\n
 start
 
 partition "Phase 1: Initialization" {
+    :set input dimensions;
     :set column dimensions;
     while (for each column)
-        partition "potential synapses" {
+        rectangle "//initializing potential synapses//" #DarkGray {
             :assign random set of inputs within inhibition radius;
             :assign a synapse to an input;
             :assign random permanence to each synapse;
-            note left
-                Permanence Value Criteria:
-                ====
-                * The values are chosen to be
-                    in a small range around the
-                    **connection_threshold**.
+            note right
+            **Permanence Value Criteria**
+            ====
+            1. The values are chosen to be
+                in a small range around the
+                **connection_threshold**.
 
-                * The values have a bias towards
-                    the column's natural center
-                    over the input region.
+            2. The values have a bias towards
+                the column's natural center
+                over the input region.
             end note
         }
-    endwhile
+    endwhile (done)
 }
 
 partition "Phase 2: Overlap" {
     while (for each column)
+
         :overlap_score = 0;
         :get connected_synapses;
 
@@ -63,7 +64,7 @@ partition "Phase 2: Overlap" {
             endif
         endwhile (done)
 
-        if (overlap_score > prox_threshold) then (no)
+        if (overlap_score > proximal_activation_threshold) then (no)
             :overlap_score = 0;
         else (yes)
             :overlap_score = overlap_score * boost;
