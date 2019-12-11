@@ -3,9 +3,6 @@
 scale 1.5
 skinparam class {
     borderColor DimGray
-    fontName Roboto
-    fontStyle bold
-    attributeFontName Ubuntu Mono
     attributeFontSize 10
 }
 
