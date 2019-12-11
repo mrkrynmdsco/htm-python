@@ -1,5 +1,24 @@
 @startuml spatial_pooler
-!include cfg_activity
+skinparam {
+    shadowing true
+    handwritten false
+    titleFontStyle bold
+    roundCorner 15
+    partitionFontSize 12
+    partitionFontStyle italic
+    partitionBorderColor DimGray
+    partitionBackgroundColor LightGray
+}
+skinparam activity {
+    arrowColor DarkRed
+    borderColor GoldenRod
+    borderThickness 1
+    backgroundColor Gold
+
+    diamondBorderColor GoldenRod
+    diamondBorderThickness 1
+    diamondBackgroundColor Gold
+}
 
 title Spatial Pooling Algorithm\n\n
 

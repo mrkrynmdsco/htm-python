@@ -1,6 +1,16 @@
 
 @startuml BaseHTM
-!include cfg_class
+skinparam {
+    shadowing true
+    handwritten false
+    titleFontStyle bold
+}
+skinparam class {
+    borderColor DarkGreen
+    backgroundColor Ivory
+    attributeFontSize 10
+}
+
 scale 1.5
 
 class BaseHTM {
