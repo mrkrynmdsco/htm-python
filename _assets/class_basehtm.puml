@@ -1,10 +1,7 @@
 
 @startuml BaseHTM
+!include cfg_class
 scale 1.5
-skinparam class {
-    borderColor DimGray
-    attributeFontSize 10
-}
 
 class BaseHTM {
     -_index: int

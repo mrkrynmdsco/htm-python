@@ -1,37 +1,30 @@
 @startuml spatial_pooler
-skinparam {
-    titleFontName Roboto
-    titleFontStyle bold
-}
-skinparam activity {
-    fontName Roboto
-    borderColor DimGray
-    backgroundColor Gold
-}
+!include cfg_activity
 
-title
-Spatial Pooling Algorithm
-end title
+title Spatial Pooling Algorithm\n\n
 
 start
 
-rectangle Initialization {
+partition Initialization {
     :init dimensions;
-    :init connections;
     :init permanences;
+    :init connections;
 }
 
-rectangle Overlap {
-    :overlap;
+partition Overlap {
+    while (check for each columns)
+        :get connected synapses;
+        :get active synapses;
+    endwhile (done)
 }
 
-rectangle Inhibition {
+partition Inhibition {
     :inhibit;
 }
 
-rectangle Learning {
+partition Learning {
     :learn;
 }
 
-end
+stop
 @enduml
