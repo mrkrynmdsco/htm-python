@@ -1,22 +1,27 @@
 @startuml spatial_pooler
 skinparam {
     shadowing true
-    handwritten false
     titleFontStyle bold
     roundCorner 15
-    partitionFontSize 12
-    partitionFontStyle italic
+    partitionFontSize 11
+    partitionFontColor Black
+    partitionFontStyle plain
     partitionBorderColor DimGray
     partitionBackgroundColor LightGray
+    partitionBorderThickness 1
+    noteFontSize 10
+    noteFontStyle italic
+    noteBorderColor Gold
+    noteBorderThickness 2
+    noteBackgroundColor LemonChiffon
 }
 skinparam activity {
     arrowColor DarkRed
     borderColor GoldenRod
-    borderThickness 1
-    backgroundColor Gold
+    borderThickness 1.5
+    backgroundColor Ivory
 
-    diamondBorderColor GoldenRod
-    diamondBorderThickness 1
+    diamondBorderColor Ivory
     diamondBackgroundColor Gold
 }
 
@@ -24,24 +29,54 @@ title Spatial Pooling Algorithm\n\n
 
 start
 
-partition Initialization {
-    :init dimensions;
-    :init permanences;
-    :init connections;
+partition "Phase 1: Initialization" {
+    :set column dimensions;
+    while (for each column)
+        partition "potential synapses" {
+            :assign random set of inputs within inhibition radius;
+            :assign a synapse to an input;
+            :assign random permanence to each synapse;
+            note left
+                Permanence Value Criteria:
+                ====
+                * The values are chosen to be
+                    in a small range around the
+                    **connection_threshold**.
+
+                * The values have a bias towards
+                    the column's natural center
+                    over the input region.
+            end note
+        }
+    endwhile
 }
 
-partition Overlap {
-    while (check for each columns)
-        :get connected synapses;
-        :get active synapses;
+partition "Phase 2: Overlap" {
+    while (for each column)
+        :overlap_score = 0;
+        :get connected_synapses;
+
+        while (for each connected_synapses)
+            if (synapse is active?) then (yes)
+                :overlap_score++;
+            else (no)
+            endif
+        endwhile (done)
+
+        if (overlap_score > prox_threshold) then (no)
+            :overlap_score = 0;
+        else (yes)
+            :overlap_score = overlap_score * boost;
+        endif
+
     endwhile (done)
 }
 
-partition Inhibition {
+partition "Phase 3: Inhibition" {
     :inhibit;
 }
 
-partition Learning {
+partition "Phase 4: Learning" {
     :learn;
 }
 
