@@ -1,45 +1,16 @@
 
-from htm.core.algorithms import SpatialPooler
+from htm.types.base import MemoryHTM
+from htm.engine.algorithms import SpatialPooler
 
 
-class Memory:
-    """ HTM Memory """
-
-    def __init__(self):
-        self._size = None
-        self._pooler = None
-        self._cfg = {}
-
-    def size(self):
-        return self._size
-
-    def pooler(self):
-        return self._pooler
-
-    def cfg(self, key):
-        return self._cfg[key]
-
-    def set_size(self, size):
-        self._size = size
-
-    def set_pooler(self, pooler):
-        self._pooler = pooler
-
-    def set_cfg(self, key, value):
-        self._cfg[key] = value
-
-    def compute(self, input, learn, output):
-        raise NotImplementedError
-
-
-class InputMemory (Memory):
+class InputMemory (MemoryHTM):
     """ HTM Input Memory """
 
     def __init__(self, nbits: int):
         super().__init__()
 
 
-class SpatialMemory (Memory):
+class SpatialMemory (MemoryHTM):
     """ HTM Spatial Memory """
 
     def __init__(self):
@@ -72,7 +43,7 @@ class SpatialMemory (Memory):
         pass
 
 
-class TemporalMemory (Memory):
+class TemporalMemory (MemoryHTM):
     """ HTM Temporal Memory """
 
     def __init__(self):

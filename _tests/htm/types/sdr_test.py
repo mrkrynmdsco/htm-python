@@ -2,7 +2,7 @@
 import unittest as ut
 import torch
 import torch.cuda as cuda
-from htm.core.sdr import SDR
+from htm.types.sdr import SDR
 
 
 DEF_BITRES = 12

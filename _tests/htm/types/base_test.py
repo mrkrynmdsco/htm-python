@@ -1,6 +1,7 @@
 
 import unittest as ut
-from htm.core.cortex import BaseHTM
+from htm.types.base import BaseHTM
+from htm.types.state import StateHTM
 
 
 class BaseHTM_BasicTests(ut.TestCase):
@@ -23,4 +24,5 @@ class BaseHTM_BasicTests(ut.TestCase):
         self.obj.set_configs(cfg)
         self.assertEqual(self.obj.get_configs(), cfg)
 
-        self.assertRaises(NotImplementedError, self.obj.set_state, 'any')
+        self.obj.set_state(StateHTM.ACTIVE)
+        self.assertEqual(self.obj.get_state().value, True)

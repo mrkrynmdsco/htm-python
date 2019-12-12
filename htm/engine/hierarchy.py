@@ -1,11 +1,10 @@
 
-from htm.core.cortex import BaseHTM
-from htm.core.memory import (InputMemory, SpatialMemory, TemporalMemory)
-from htm.core.cortex import (PREDICTED, INACTIVE, ACTIVE)
+from htm.types.base import BaseHTM
 
 
 class Region (BaseHTM):
     """ HTM Region """
+
     def __init__(self):
         super().__init__()
         self._cfg = {
@@ -22,12 +21,14 @@ class Region (BaseHTM):
 
 class Layer:
     """ HTM Layer """
+
     def __init__(self):
         pass
 
 
 class HyperColumn (BaseHTM):
     """ HTM Hyper Column (macro-column) """
+
     def __init__(self):
         super().__init__()
 

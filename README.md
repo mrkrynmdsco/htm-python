@@ -13,10 +13,16 @@ With reference and adaptation of the following:
 
 ## Features
 
+### Object Types
+- [ ] SDR (Sparse Distributed Representation)
+##### State Objects
+- [ ] StateHTM
+##### Base Objects
+- [ ] BaseHTM
+- [ ] MemoryHTM
+
 ### Engine
 
-#### Data Types
-- [ ] SDR (Sparse Distributed Representation)
 ##### Cortex
 - [ ] Synapse
 - [ ] Segment
@@ -34,13 +40,13 @@ With reference and adaptation of the following:
 ##### Temporal
 - [ ] Sequence :question:
 ##### Algorithms
-- [ ] Encoder
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
 
 ### Extensions
 
 #### Encoders
+- [ ] Encoder
 - [ ]
 #### Receptors
 - [ ]

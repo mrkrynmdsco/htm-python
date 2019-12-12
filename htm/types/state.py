@@ -1,0 +1,19 @@
+
+from enum import Enum
+
+
+class StateHTM (Enum):
+    PREDICTED = -1
+    INACTIVE = False
+    ACTIVE = True
+
+
+PREDICTED = StateHTM.PREDICTED
+INACTIVE = StateHTM.INACTIVE
+ACTIVE = StateHTM.ACTIVE
+
+OFF = StateHTM.INACTIVE
+ON = StateHTM.ACTIVE
+
+LOW = StateHTM.INACTIVE
+HIGH = StateHTM.ACTIVE
