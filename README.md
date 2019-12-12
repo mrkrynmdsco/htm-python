@@ -13,9 +13,9 @@ With reference and adaptation of the following:
 
 ## Features
 
-### Core
+### Engine
 
-##### Data
+#### Data Types
 - [ ] SDR (Sparse Distributed Representation)
 ##### Cortex
 - [ ] Synapse
@@ -37,9 +37,15 @@ With reference and adaptation of the following:
 - [ ] Encoder
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
-##### --TBDs--
-- [ ] Visualization :wink:
 
-### Encoders
-### Receptors
-### Effectors
+### Extensions
+
+#### Encoders
+- [ ]
+#### Receptors
+- [ ]
+#### Effectors
+- [ ]
+
+### --TBDs--
+- [ ] Visualization :wink:

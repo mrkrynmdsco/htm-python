@@ -39,7 +39,6 @@ class SparseDistributedRepresentation:
     sparse: torch.IntTensor
         - tensor of indices of each active bits
 
-
     Methods
     -------
     dense()
