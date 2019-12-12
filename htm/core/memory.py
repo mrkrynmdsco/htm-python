@@ -51,7 +51,7 @@ class SpatialMemory (Memory):
             'potential_percentage': 0.50,
             'global_inhibition': False,
             'local_area_density': 0.02,
-            'threshold_stimulus': 1
+            'threshold_stimulus': 1,
             'threshold_permanence': 0.10,
             'permanence_increment': 0.10,
             'permanence_decrement': 0.01,
@@ -67,6 +67,9 @@ class SpatialMemory (Memory):
     @property
     def pooler(self):
         return self._pooler
+
+    def init_pooler(self):
+        pass
 
 
 class TemporalMemory (Memory):

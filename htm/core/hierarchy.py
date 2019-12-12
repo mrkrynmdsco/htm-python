@@ -1,14 +1,22 @@
 
 from htm.core.cortex import BaseHTM
+from htm.core.memory import (InputMemory, SpatialMemory, TemporalMemory)
 from htm.core.cortex import (PREDICTED, INACTIVE, ACTIVE)
 
 
-class Region:
+class Region (BaseHTM):
     """ HTM Region """
     def __init__(self):
-        self._columns = None
+        super().__init__()
+        self._cfg = {
+            'input_dims': [32, 32],
+            'column_dims': [64, 64],
+        }
+        self._imem = None
+        self._smem = None
+        self._tmem = None
 
-    def cols_sdr(self):
+    def columns_sdr(self):
         pass
 
 
