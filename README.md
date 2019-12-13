@@ -14,7 +14,15 @@ With reference and adaptation of the following:
 ## Features
 
 ### Object Types
+
+##### SDR Object
 - [ ] SDR (Sparse Distributed Representation)
+##### Cortical Objects
+- [ ] Synapse
+- [ ] Segment
+- [ ] Cell
+- [ ] Column
+- [ ] Grid Cell
 ##### State Objects
 - [ ] StateHTM
 ##### Base Objects
@@ -23,12 +31,6 @@ With reference and adaptation of the following:
 
 ### Engine
 
-##### Cortex
-- [ ] Synapse
-- [ ] Segment
-- [ ] Cell
-- [ ] Column
-- [ ] Grid Cell
 ##### Hierarchy
 - [ ] Region
 - [ ] Layer

@@ -1,5 +1,5 @@
 
-@startuml BaseHTM
+@startuml ObjectHTM
 skinparam {
     shadowing true
     handwritten false
@@ -13,24 +13,16 @@ skinparam class {
 
 scale 1.5
 
-class BaseHTM {
-    -_index: int
-    -_state: 
+class ObjectHTM {
     -_cfg: dict
     __
     .. Getter Functions ..
     
-    +get_index()
-    +get_state()
-    +get_configs()
-    +get_config(key: str)
+    +cfg(key: str)
 
     .. Setter Functions ..
     
-    +set_index(i: int)
-    +set_state(s: )
-    +set_configs(cfg: dict)
-    +set_config(key: str, value)
+    +set_cfg(key: str, value)
 
 }
 @enduml

@@ -8,7 +8,7 @@ with open("RADME.md", 'r') as fh:
 setup(
     name="htm-python",
     version="0.0.1",
-    author="Mark Dasco, Numenta, HTM-Community",
+    author="Mark Dasco",
     author_email="mrkrynmdsco@gmail.com",
     description="Python Re-Implementation of HTM",
     long_description=long_description,
