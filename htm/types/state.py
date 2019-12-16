@@ -8,12 +8,12 @@ class StateHTM (Enum):
     ACTIVE = True
 
 
-PREDICTED = StateHTM.PREDICTED
-INACTIVE = StateHTM.INACTIVE
-ACTIVE = StateHTM.ACTIVE
+PREDICTED = None
+INACTIVE = False
+ACTIVE = True
 
-OFF = StateHTM.INACTIVE
-ON = StateHTM.ACTIVE
+OFF = False
+ON = True
 
-LOW = StateHTM.INACTIVE
-HIGH = StateHTM.ACTIVE
+LOW = False
+HIGH = True

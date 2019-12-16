@@ -56,9 +56,10 @@ class MemoryHTM (ObjectHTM):
         }
         self.set_configs(cfg)
 
-        self._colmap = None
-        self._celmap = None
-        self._conmap = None
+        self._colmap = None     # column activation map
+        self._celmap = None     # cell activation map
+        self._conmap = None     # connection state map
+        self._prdmap = None     # cell prediction map
 
     def get_shape(self):
         return self._cfg['shape']
