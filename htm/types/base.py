@@ -2,6 +2,23 @@
 class CorticalObject (object):
     def __init__(self):
         self._idx = None
+        self._state = None
+
+    @property
+    def idx(self):
+        return self._idx
+
+    @property
+    def state(self):
+        return self._state
+
+    @idx.setter
+    def idx(self, idx: int):
+        self._idx = idx
+
+    @state.setter
+    def state(self, s):
+        self._state = s
 
 
 class ObjectHTM (object):
@@ -22,31 +39,48 @@ class ObjectHTM (object):
     def set_configs(self, cfg: dict):
         self._cfg = cfg
 
+    def append_configs(self, cfg: dict):
+        for key, value in cfg.items():
+            self.set_cfg(key, value)
+
 
 class MemoryHTM (ObjectHTM):
     """ HTM Memory Object """
 
     def __init__(self):
         super().__init__()
+        cfg = {
+            'shape': None,  # memory shape
+            'ncols': None,  # memory number of columns
+            'ncels': None,  # memory number of cells per column
+        }
+        self.set_configs(cfg)
 
-        self._size = None
-        self._pooler = None
+        self._colmap = None
+        self._celmap = None
+        self._conmap = None
 
-        self._cells = None
-        self._segments = None
-        self._synapses = None
+    def get_shape(self):
+        return self._cfg['shape']
 
-    def size(self):
-        return self._size
+    def get_ncolumns(self):
+        return self._cfg['ncols']
 
-    def pooler(self):
-        return self._pooler
+    def get_ncells(self):
+        return self._cfg['ncels']
 
-    def set_size(self, size):
-        self._size = size
+    def set_shape(self, r: int, c: int):
+        self._cfg['shape'] = (r, c)
+        self._cfg['ncols'] = r * c
 
-    def set_pooler(self, pooler):
-        self._pooler = pooler
+    def set_ncells(self, n: int):
+        self._cfg['ncels'] = n
 
-    def compute(self, input, learn, output):
+    def initialize(self):
+        raise NotImplementedError
+
+    def compute(self, input, outpur, islearn):
+        raise NotImplementedError
+
+    def render(self, mtype):
         raise NotImplementedError
