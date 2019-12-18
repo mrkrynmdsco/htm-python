@@ -15,8 +15,8 @@ class SpatialMemory (MemoryHTM):
     def __init__(self):
         super().__init__()
         cfg = {
-            'input_dimensions': (32, 32),
-            'column_dimensions': (64, 64),
+            'input_shape': (32, 32),
+            'column_shape': (64, 64),
             'potential_radius': 16,
             'potential_percentage': 0.50,
             'global_inhibition': False,
@@ -34,18 +34,12 @@ class SpatialMemory (MemoryHTM):
         }
         self.append_configs(cfg)
 
-        self._pooler = None
-
-    def init_pooler(self):
-        pass
-
 
 class TemporalMemory (MemoryHTM):
     """ HTM Temporal Memory """
 
     def __init__(self):
         super().__init__()
-        self._pooler = None
 
 
 class SpatioTemporalMemory (MemoryHTM):

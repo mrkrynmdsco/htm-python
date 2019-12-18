@@ -50,7 +50,6 @@ class MemoryHTM (ObjectHTM):
     def __init__(self):
         super().__init__()
         cfg = {
-            'shape': None,  # memory shape
             'ncols': None,  # memory number of columns
             'ncels': None,  # memory number of cells per column
         }
@@ -58,11 +57,12 @@ class MemoryHTM (ObjectHTM):
 
         self._colmap = None     # column activation map
         self._celmap = None     # cell activation map
+        self._segmap = None
+        self._synmap = None
         self._conmap = None     # connection state map
-        self._prdmap = None     # cell prediction map
 
-    def get_shape(self):
-        return self._cfg['shape']
+        self._inhmap = None     # column inhibition map
+        self._prdmap = None     # cell prediction map
 
     def get_ncolumns(self):
         return self._cfg['ncols']
@@ -70,9 +70,8 @@ class MemoryHTM (ObjectHTM):
     def get_ncells(self):
         return self._cfg['ncels']
 
-    def set_shape(self, r: int, c: int):
-        self._cfg['shape'] = (r, c)
-        self._cfg['ncols'] = r * c
+    def set_ncolumns(self, n: int):
+        self._cfg['ncols'] = n
 
     def set_ncells(self, n: int):
         self._cfg['ncels'] = n
