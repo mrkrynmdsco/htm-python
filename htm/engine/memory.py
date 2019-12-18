@@ -7,6 +7,15 @@ class InputMemory (MemoryHTM):
 
     def __init__(self):
         super().__init__()
+        self.setcfg('input_shape', None)
+
+    def configure(self, shape: tuple):
+        self.set_ncolumns(shape[0] * shape[1])
+        self.set_ncells(1)
+
+    def initialize(self):
+        self.init_columns()
+        self.init_cells()
 
 
 class SpatialMemory (MemoryHTM):
@@ -32,7 +41,7 @@ class SpatialMemory (MemoryHTM):
             'verbosity': 0,
             'wrap_around': True
         }
-        self.append_configs(cfg)
+        self.append_cfgs(cfg)
 
 
 class TemporalMemory (MemoryHTM):

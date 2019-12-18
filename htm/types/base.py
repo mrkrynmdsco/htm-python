@@ -27,19 +27,19 @@ class ObjectHTM (object):
     def __init__(self):
         self._cfg = {}
 
-    def cfg(self, key: str):
+    def getcfg(self, key: str):
         return self._cfg[key]
 
-    def set_cfg(self, key: str, value):
+    def setcfg(self, key: str, value):
         self._cfg[key] = value
 
-    def get_configs(self):
+    def getcfgs(self):
         return self._cfg
 
-    def set_configs(self, cfg: dict):
-        self._cfg = cfg
+    def setcfgs(self, cfgs: dict):
+        self._cfg = cfgs
 
-    def append_configs(self, cfg: dict):
+    def append_cfgs(self, cfgs: dict):
         for key, value in cfg.items():
             self.set_cfg(key, value)
 
@@ -50,37 +50,65 @@ class MemoryHTM (ObjectHTM):
     def __init__(self):
         super().__init__()
         cfg = {
-            'ncols': None,  # memory number of columns
-            'ncels': None,  # memory number of cells per column
-        }
-        self.set_configs(cfg)
+            'ncols': None,      # memory number of columns
+            'ncels': None,      # memory number of cells per column
+            'nsegs': None,      # memory number of segments per cell
+            'nsyns': None,      # memory number of synapses per segment
 
-        self._colmap = None     # column activation map
-        self._celmap = None     # cell activation map
-        self._segmap = None
-        self._synmap = None
-        self._conmap = None     # connection state map
+            'max_ncols': None,  # maximum number of columns
+            'max_ncels': None,  # maximum number of cells per column
+            'max_nsegs': None,  # maximum number of segments per cell
+            'max_nsyns': None,  # maximum number of synapses per segment
+        }
+        self.setcfgs(cfg)
+
+        self._colmap = None     # columns activation map
+        self._celmap = None     # cells activation map
+        self._segmap = None     # segments activation map
+        self._synmap = None     # synapses activation map
+        self._conmap = None     # connections map
 
         self._inhmap = None     # column inhibition map
         self._prdmap = None     # cell prediction map
 
     def get_ncolumns(self):
-        return self._cfg['ncols']
+        return self.getcfg('ncols')
 
     def get_ncells(self):
-        return self._cfg['ncels']
+        return self.getcfg('ncels')
+
+    def get_nsegments(self):
+        return self.getcfg('nsegs')
+
+    def get_nsynapses(self):
+        return self.getcfg('nsyns')
 
     def set_ncolumns(self, n: int):
-        self._cfg['ncols'] = n
+        self.setcfg('ncols', n)
 
     def set_ncells(self, n: int):
-        self._cfg['ncels'] = n
+        self.setcfg('ncels', n)
+
+    def set_nsegments(self, n: int):
+        self.setcfg('nsegs', n)
+
+    def set_nsynapses(self, n: int):
+        self.setcfg('nsyns', n)
+
+    def init_columns(self):
+        self._colmap = torch.BoolTensor([0] * self.get_ncolumns())
+
+    def init_cells(self):
+        self._celmap = torch.BoolTensor([[0] * self.get_ncells()] * self.get_ncolumns())
+
+    def configure(self):
+        raise NotImplementedError
 
     def initialize(self):
         raise NotImplementedError
 
-    def compute(self, input, outpur, islearn):
+    def compute(self, input, output, islearn):
         raise NotImplementedError
 
-    def render(self, mtype):
+    def render(self, tmap):
         raise NotImplementedError
