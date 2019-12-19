@@ -107,23 +107,35 @@ class MemoryHTM (ObjectHTM):
 
     @ncolumns.setter
     def ncolumns(self, n: int):
-        # TODO: Add checking against max limit
-        self.setcfg('ncols', n)
+        MAX = self._cfg['max_ncols']
+        if n >= MAX:
+            self.setcfg('ncols', n)
+        else:
+            raise Exception('Exceeded maximum number of columns. (max: {}, set: {})'.format(MAX, n))
 
     @ncells.setter
     def ncells(self, n: int):
-        # TODO: Add checking against max limit
-        self.setcfg('ncels', n)
+        MAX = self._cfg['max_ncels']
+        if n >= MAX:
+            self.setcfg('ncels', n)
+        else:
+            raise Exception('Exceeded maximum number of cells per column. (max: {}, set: {})'.format(MAX, n))
 
     @nsegments.setter
     def nsegments(self, n: int):
-        # TODO: Add checking against max limit
-        self.setcfg('nsegs', n)
+        MAX = self._cfg['max_nsegs']
+        if n >= MAX:
+            self.setcfg('nsegs', n)
+        else:
+            raise Exception('Exceeded maximum number of segments per cell. (max: {}, set: {})'.format(MAX, n))
 
     @nsynapses.setter
     def nsynapses(self, n: int):
-        # TODO: Add checking against max limit
-        self.setcfg('nsyns', n)
+        MAX = self._cfg['max_nsyns']
+        if n >= MAX:
+            self.setcfg('nsyns', n)
+        else:
+            raise Exception('Exceeded maximum number of synapses per segment. (max: {}, set: {})'.format(MAX, n))
 
     def init_columns(self):
         self._colmap = torch.zeros(size=(self.ncolumns, 1),

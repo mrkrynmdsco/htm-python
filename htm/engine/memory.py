@@ -7,6 +7,11 @@ class InputMemory (MemoryHTM):
 
     def __init__(self):
         super().__init__()
+        # Delete unnecessary attributes
+        del self._segmap
+        del self._synmap
+        del self._conmap
+
         self.setcfg('input_shape', None)
 
     def configure(self, shape: tuple):
@@ -45,6 +50,7 @@ class SpatialMemory (MemoryHTM):
         self.append_cfgs(cfg)
 
         self._inhmap = None     # columns inhibition map
+        self._permap = None     # synapses permanence map
 
 
 class TemporalMemory (MemoryHTM):
