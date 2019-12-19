@@ -10,8 +10,9 @@ class InputMemory (MemoryHTM):
         self.setcfg('input_shape', None)
 
     def configure(self, shape: tuple):
-        self.set_ncolumns(shape[0] * shape[1])
-        self.set_ncells(1)
+        self.setcfg('input_shape', shape)
+        self.ncolumns = shape[0] * shape[1]
+        self.ncells = 1
 
     def initialize(self):
         self.init_columns()
@@ -43,12 +44,16 @@ class SpatialMemory (MemoryHTM):
         }
         self.append_cfgs(cfg)
 
+        self._inhmap = None     # columns inhibition map
+
 
 class TemporalMemory (MemoryHTM):
     """ HTM Temporal Memory """
 
     def __init__(self):
         super().__init__()
+
+        self._prdmap = None     # cells prediction map
 
 
 class SpatioTemporalMemory (MemoryHTM):

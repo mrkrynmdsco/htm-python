@@ -1,4 +1,8 @@
 
+import torch
+import torch.cuda as cuda
+
+
 class CorticalObject (object):
     def __init__(self):
         self._idx = None
@@ -26,6 +30,7 @@ class ObjectHTM (object):
 
     def __init__(self):
         self._cfg = {}
+        self._device = 'cuda' if cuda.is_available() else 'cpu'
 
     def getcfg(self, key: str):
         return self._cfg[key]
@@ -40,7 +45,7 @@ class ObjectHTM (object):
         self._cfg = cfgs
 
     def append_cfgs(self, cfgs: dict):
-        for key, value in cfg.items():
+        for key, value in cfgs.items():
             self.set_cfg(key, value)
 
 
@@ -68,38 +73,77 @@ class MemoryHTM (ObjectHTM):
         self._synmap = None     # synapses activation map
         self._conmap = None     # connections map
 
-        self._inhmap = None     # column inhibition map
-        self._prdmap = None     # cell prediction map
+    @property
+    def colmap(self):
+        return self._colmap
 
-    def get_ncolumns(self):
+    @property
+    def celmap(self):
+        return self._celmap
+
+    @property
+    def segmap(self):
+        return self._segmap
+
+    @property
+    def synmap(self):
+        return self._synmap
+
+    @property
+    def ncolumns(self):
         return self.getcfg('ncols')
 
-    def get_ncells(self):
+    @property
+    def ncells(self):
         return self.getcfg('ncels')
 
-    def get_nsegments(self):
+    @property
+    def nsegments(self):
         return self.getcfg('nsegs')
 
-    def get_nsynapses(self):
+    @property
+    def nsynapses(self):
         return self.getcfg('nsyns')
 
-    def set_ncolumns(self, n: int):
+    @ncolumns.setter
+    def ncolumns(self, n: int):
+        # TODO: Add checking against max limit
         self.setcfg('ncols', n)
 
-    def set_ncells(self, n: int):
+    @ncells.setter
+    def ncells(self, n: int):
+        # TODO: Add checking against max limit
         self.setcfg('ncels', n)
 
-    def set_nsegments(self, n: int):
+    @nsegments.setter
+    def nsegments(self, n: int):
+        # TODO: Add checking against max limit
         self.setcfg('nsegs', n)
 
-    def set_nsynapses(self, n: int):
+    @nsynapses.setter
+    def nsynapses(self, n: int):
+        # TODO: Add checking against max limit
         self.setcfg('nsyns', n)
 
     def init_columns(self):
-        self._colmap = torch.BoolTensor([0] * self.get_ncolumns())
+        self._colmap = torch.zeros(size=(self.ncolumns, 1),
+                                   dtype=torch.bool,
+                                   device=self._device)
 
     def init_cells(self):
-        self._celmap = torch.BoolTensor([[0] * self.get_ncells()] * self.get_ncolumns())
+        self._celmap = torch.zeros(size=(self.ncolumns, self.ncells),
+                                   dtype=torch.bool,
+                                   device=self._device)
+
+    def init_segments(self):
+        self._segmap = torch.zeros(size=(self.ncolumns, self.ncells, self.nsegments),
+                                   dtype=torch.bool,
+                                   device=self._device)
+
+    def init_synapses(self):
+        self._synmap = torch.zeros(size=(self.ncolumns, self.ncells, self.nsegments, self.nsynapses),
+                                   dtype=torch.bool,
+                                   device=self._device)
 
     def configure(self):
         raise NotImplementedError
