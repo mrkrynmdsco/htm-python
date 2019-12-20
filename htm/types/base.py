@@ -107,32 +107,32 @@ class MemoryHTM (ObjectHTM):
 
     @ncolumns.setter
     def ncolumns(self, n: int):
-        MAX = self._cfg['max_ncols']
-        if n >= MAX:
+        MAX = self.getcfg('max_ncols')
+        if n > MAX:
             self.setcfg('ncols', n)
         else:
             raise Exception('Exceeded maximum number of columns. (max: {}, set: {})'.format(MAX, n))
 
     @ncells.setter
     def ncells(self, n: int):
-        MAX = self._cfg['max_ncels']
-        if n >= MAX:
+        MAX = self.getcfg('max_ncels')
+        if n > MAX:
             self.setcfg('ncels', n)
         else:
             raise Exception('Exceeded maximum number of cells per column. (max: {}, set: {})'.format(MAX, n))
 
     @nsegments.setter
     def nsegments(self, n: int):
-        MAX = self._cfg['max_nsegs']
-        if n >= MAX:
+        MAX = self.getcfg('max_nsegs')
+        if n > MAX:
             self.setcfg('nsegs', n)
         else:
             raise Exception('Exceeded maximum number of segments per cell. (max: {}, set: {})'.format(MAX, n))
 
     @nsynapses.setter
     def nsynapses(self, n: int):
-        MAX = self._cfg['max_nsyns']
-        if n >= MAX:
+        MAX = self.getcfg('max_nsyns')
+        if n > MAX:
             self.setcfg('nsyns', n)
         else:
             raise Exception('Exceeded maximum number of synapses per segment. (max: {}, set: {})'.format(MAX, n))

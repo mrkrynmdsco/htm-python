@@ -16,8 +16,11 @@ class InputMemory (MemoryHTM):
 
     def configure(self, shape: tuple):
         self.setcfg('input_shape', shape)
-        self.ncolumns = shape[0] * shape[1]
-        self.ncells = 1
+        self.setcfg('max_ncols', shape[0] * shape[1])
+        self.setcfg('max_ncels', 1)
+
+        self.ncolumns = self.getcfg('max_ncols')
+        self.ncells = self.getcfg('max_ncels')
 
     def initialize(self):
         self.init_columns()
