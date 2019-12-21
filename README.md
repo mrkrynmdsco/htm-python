@@ -52,16 +52,17 @@ With reference and/or adaptation of the following:
 ##### Algorithms
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
+- [ ] SpatioTemporal Pooler
 
 ### Extensions
 
 #### Encoders
 - [ ] Encoder
-- [ ]
+- [ ] 
 #### Receptors
-- [ ]
+- [ ] 
 #### Effectors
-- [ ]
+- [ ] 
 
 ### --TBDs--
 - [ ] Visualization :wink:

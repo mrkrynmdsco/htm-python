@@ -2,31 +2,6 @@
 from htm.types.base import MemoryHTM
 
 
-class InputMemory (MemoryHTM):
-    """ HTM Input Memory """
-
-    def __init__(self):
-        super().__init__()
-        # Delete unnecessary attributes
-        del self._segmap
-        del self._synmap
-        del self._conmap
-
-        self.setcfg('input_shape', None)
-
-    def configure(self, shape: tuple):
-        self.setcfg('input_shape', shape)
-        self.setcfg('max_ncols', shape[0] * shape[1])
-        self.setcfg('max_ncels', 1)
-
-        self.ncolumns = self.getcfg('max_ncols')
-        self.ncells = self.getcfg('max_ncels')
-
-    def initialize(self):
-        self.init_columns()
-        self.init_cells()
-
-
 class SpatialMemory (MemoryHTM):
     """ HTM Spatial Memory """
 
@@ -54,6 +29,9 @@ class SpatialMemory (MemoryHTM):
 
         self._inhmap = None     # columns inhibition map
         self._permap = None     # synapses permanence map
+
+    def configure(self):
+        return super().configure()
 
 
 class TemporalMemory (MemoryHTM):
