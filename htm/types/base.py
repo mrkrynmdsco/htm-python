@@ -55,10 +55,10 @@ class MemoryHTM (ObjectHTM):
     def __init__(self):
         super().__init__()
         cfg = {
-            'ncols': None,      # memory number of columns
-            'ncels': None,      # memory number of cells per column
-            'nsegs': None,      # memory number of segments per cell
-            'nsyns': None,      # memory number of synapses per segment
+            'ncols': None,      # number of columns
+            'ncels': None,      # number of cells per column
+            'nsegs': None,      # number of segments per cell
+            'nsyns': None,      # number of synapses per segment
 
             'max_ncols': None,  # maximum number of columns
             'max_ncels': None,  # maximum number of cells per column
@@ -137,22 +137,22 @@ class MemoryHTM (ObjectHTM):
         else:
             raise Exception('Exceeded maximum number of synapses per segment. (max: {}, set: {})'.format(MAX, n))
 
-    def init_columns(self):
+    def create_columns(self):
         self._colmap = torch.zeros(size=(self.ncolumns, 1),
                                    dtype=torch.bool,
                                    device=self._device)
 
-    def init_cells(self):
+    def create_cells(self):
         self._celmap = torch.zeros(size=(self.ncolumns, self.ncells),
                                    dtype=torch.bool,
                                    device=self._device)
 
-    def init_segments(self):
+    def create_segments(self):
         self._segmap = torch.zeros(size=(self.ncolumns, self.ncells, self.nsegments),
                                    dtype=torch.bool,
                                    device=self._device)
 
-    def init_synapses(self):
+    def create_synapses(self):
         self._synmap = torch.zeros(size=(self.ncolumns, self.ncells, self.nsegments, self.nsynapses),
                                    dtype=torch.bool,
                                    device=self._device)
