@@ -55,18 +55,13 @@ class Connections (Map):
 
     def __init__(self, size: int):
         super().__init__(size=size)
-        cfg = {
-            'max_conns_per_cell': 16,    # maximum number of connections per map cell
-        }
-        self.append_cfgs(cfg)
-
         self.initialize()
 
     def get_connection(self, idx: int):
         return self.map[idx]
 
     def add_connection(self, idx: int, to_idx: int):
-        if to_idx not in self.map[idx] and self.getcfg('max_conns_per_cell') > len(self.map[idx]):
+        if to_idx not in self.map[idx]:
             self.map[idx].append(to_idx)
 
     def del_connection(self, idx: int, to_idx: int):
