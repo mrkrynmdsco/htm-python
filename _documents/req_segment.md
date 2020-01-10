@@ -14,7 +14,7 @@ cell’s predictive state is the logical OR operation of several constituent thr
 ### Functional Requirements
 
 ##### HTM-FR-SEG_01
-- [x] A segment object shall inherit the [BaseHTM](./req_basehtm.md) class.
+- [x] A segment object shall inherit the [_htmObj_](./req_htmobj.md) class.
 
 
 

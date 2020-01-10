@@ -2,7 +2,7 @@
 from enum import Enum
 
 
-class StateHTM (Enum):
+class State (Enum):
     PREDICTED = -1
     INACTIVE = False
     ACTIVE = True

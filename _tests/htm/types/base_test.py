@@ -1,11 +1,11 @@
 
 import unittest as ut
-from htm.types.base import ObjectHTM
+from htm.types.base import _htmObj_
 
 
-class ObjectHTM_BasicTests(ut.TestCase):
+class HtmObject_BasicTests(ut.TestCase):
     def setUp(self):
-        self.obj = ObjectHTM()
+        self.obj = _htmObj_()
 
     def test_default_property_values(self):
         self.assertEqual(self.obj.getcfgs(), {})

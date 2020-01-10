@@ -6,7 +6,7 @@
 ### Functional Requirements
 
 ##### HTM-FR-CEL_01
-- [ ] A cell object shall inherit the [BaseHTM](./req_basehtm.md) class.
+- [ ] A cell object shall inherit the [_htmObj_](./req_htmobj.md) class.
 
 #### References:
 * Hierarchical Temporal Memory including HTM Cortical Learning Algorithms,

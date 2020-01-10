@@ -31,18 +31,17 @@ With reference and/or adaptation of the following:
 - [ ] Column
 - [ ] Grid Cell
 ##### State Objects
-- [ ] StateHTM
+- [ ] State
 ##### Base Objects
-- [ ] ObjectHTM
-- [ ] MemoryHTM
+- [ ] Map
+- [ ] Connections
+- [ ] Memory
 
 ### Engine
 
 ##### Hierarchy
 - [ ] Region
 - [ ] Layer
-- [ ] HyperColumn
-- [ ] Network
 ##### Memory
 - [ ] Spatial Memory
 - [ ] Temporal Memory
@@ -52,7 +51,6 @@ With reference and/or adaptation of the following:
 ##### Algorithms
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
-- [ ] SpatioTemporal Pooler
 
 ### Extensions
 

@@ -3,6 +3,93 @@ import torch
 import torch.cuda as cuda
 
 
+class _htmObj_ (object):
+    """ HTM Base Object """
+
+    def __init__(self):
+        self._cfg = {}
+        self._device = 'cuda' if cuda.is_available() else 'cpu'
+
+    def getcfg(self, key: str):
+        return self._cfg[key]
+
+    def setcfg(self, key: str, value):
+        self._cfg[key] = value
+
+    def getcfgs(self):
+        return self._cfg
+
+    def setcfgs(self, cfgs: dict):
+        self._cfg = cfgs
+
+    def append_cfgs(self, cfgs: dict):
+        for key, value in cfgs.items():
+            self.setcfg(key, value)
+
+
+class Map (_htmObj_):
+    """ Map (htm) """
+
+    def __init__(self, size: int):
+        super().__init__()
+        cfg = {
+            'size': size
+        }
+        self.setcfgs(cfg)
+        self._map = None
+
+    @property
+    def size(self):
+        return self.getcfg('size')
+
+    @property
+    def map(self):
+        return self._map
+
+    def initialize(self):
+        self._map = [[] for i in range(self.size)]
+
+
+class Connections (Map):
+    """ Connections Map (htm) """
+
+    def __init__(self, size: int):
+        super().__init__(size=size)
+        cfg = {
+            'max_conns': 16,    # maximum number of connections per map cell
+            'min_conns': 4,     # minimum number of connections per map cell
+        }
+        self.append_cfgs(cfg)
+
+        self.initialize()
+
+    def add_connection(self, idx: int, to_idx: int):
+        if to_idx not in self.map[idx] and self.getcfg('max_conns') > len(self.map[idx]):
+            self.map[idx].append(to_idx)
+
+    def del_connection(self, idx: int, to_idx: int):
+        if to_idx in self.map[idx]:
+            self.map[idx].remove(to_idx)
+
+    def get_connections(self, idx: int):
+        return self.map[idx]
+
+
+class Memory (_htmObj_):
+    """ Memory (htm) """
+    
+    def __init__(self, size: int):
+        super().__init__()
+        cfg = {
+            'size': None,
+            'max_size': None,
+            'min_size': None,
+        }
+        self.setcfgs(cfg)
+
+
+
+
 class CorticalObject (object):
     def __init__(self):
         self._idx = None
@@ -25,31 +112,7 @@ class CorticalObject (object):
         self._state = s
 
 
-class ObjectHTM (object):
-    """ HTM Base Object """
-
-    def __init__(self):
-        self._cfg = {}
-        self._device = 'cuda' if cuda.is_available() else 'cpu'
-
-    def getcfg(self, key: str):
-        return self._cfg[key]
-
-    def setcfg(self, key: str, value):
-        self._cfg[key] = value
-
-    def getcfgs(self):
-        return self._cfg
-
-    def setcfgs(self, cfgs: dict):
-        self._cfg = cfgs
-
-    def append_cfgs(self, cfgs: dict):
-        for key, value in cfgs.items():
-            self.set_cfg(key, value)
-
-
-class MemoryHTM (ObjectHTM):
+class MemoryHTM (_htmObj_):
     """ HTM Memory Object """
 
     def __init__(self):

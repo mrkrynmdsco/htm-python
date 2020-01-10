@@ -41,12 +41,3 @@ class TemporalMemory (MemoryHTM):
         super().__init__()
 
         self._prdmap = None     # cells prediction map
-
-
-class SpatioTemporalMemory (MemoryHTM):
-    """ HTM Spatio-Temporal Memory """
-
-    def __init__(self):
-        super().__init__()
-        self._sp = None
-        self._tp = None

@@ -1,10 +1,10 @@
 
-# Object HTM
+# HTM Object
 
 ### Description
 An HTM base object class.
 
-![base_htm](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mrkrynmdsco/htm-python/master/_assets/class_objhtm.puml)
+![htmObj](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mrkrynmdsco/htm-python/master/_assets/class_htmobj.puml)
 
 ### Functional Requirements
 

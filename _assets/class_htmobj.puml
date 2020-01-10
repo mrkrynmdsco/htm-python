@@ -1,0 +1,33 @@
+
+@startuml htmObj
+skinparam {
+    shadowing true
+    handwritten false
+    titleFontStyle plain
+}
+skinparam class {
+    borderColor DarkGreen
+    backgroundColor Ivory
+    attributeFontSize 9
+}
+
+scale 1.5
+
+class _htmObj_ {
+    -_cfg :dict
+    -_device :str
+    __
+    .. Getter Functions ..
+    
+    +getcfg(key :str) :*
+    +getcfgs(void) :dict
+
+    .. Setter Functions ..
+    
+    +setcfg(key :str, *)
+    +setcfgs(cfgs :dict)
+
+    +append_cfgs(cfgs :dict)
+
+}
+@enduml
