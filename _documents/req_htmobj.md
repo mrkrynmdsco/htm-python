@@ -14,5 +14,4 @@ An HTM base object class.
 ##### HTM-FR-OBJ_02
 - [x] The HTM object shall be able to get and set its configurable parameters.
 
-
 #### References:

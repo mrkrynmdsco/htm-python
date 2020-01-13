@@ -32,9 +32,8 @@ With reference and adaptation of the following:
 - [ ] Grid Cell
 ##### State Objects
 - [ ] State
-##### Base Objects
+##### Base Types
 - [ ] Map
-- [ ] Connections
 - [ ] Memory
 
 ### Engine
@@ -48,6 +47,8 @@ With reference and adaptation of the following:
 ##### Temporal
 - [ ] Scheduler :question:
 - [ ] Sequence :question:
+##### Map
+- [ ] Connections
 ##### Algorithms
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
