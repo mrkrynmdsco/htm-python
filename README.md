@@ -3,7 +3,7 @@
 ## Overview
 This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s [NuPIC](https://github.com/numenta/nupic.core) based on my understanding of the theory.
 
-With reference and/or adaptation of the following:
+With reference and adaptation of the following:
 * [HTM-Community](https://numenta.org/)'s [htm.core](https://github.com/htm-community/htm.core)
 * [James Mnatzaganian](https://techtorials.me/)'s [work](https://github.com/tehtechguy/mHTM) and his [thesis](https://scholarworks.rit.edu/theses/9012/)
 

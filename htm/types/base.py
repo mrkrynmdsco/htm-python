@@ -50,33 +50,6 @@ class Map (_htmObj_):
         self._map = [[] for i in range(self.size)]
 
 
-class Connections (Map):
-    """ Connections Map (htm) """
-
-    def __init__(self, size: int):
-        super().__init__(size=size)
-        self.initialize()
-
-    def get_connection(self, idx: int):
-        return self.map[idx]
-
-    def add_connection(self, idx: int, to_idx: int):
-        if to_idx not in self.map[idx]:
-            self.map[idx].append(to_idx)
-
-    def del_connection(self, idx: int, to_idx: int):
-        if to_idx in self.map[idx]:
-            self.map[idx].remove(to_idx)
-
-    def add_connections(self, idx: int, ilst: list):
-        for i in ilst:
-            self.add_connection(idx, i)
-
-    def del_connections(self, idx: int, ilst: list):
-        for i in ilst:
-            self.del_connection(idx, i)
-
-
 class Memory (_htmObj_):
     """ Memory (htm) """
     
@@ -88,30 +61,18 @@ class Memory (_htmObj_):
             'min_size': None,
         }
         self.setcfgs(cfg)
-
-
-
-
-class CorticalObject (object):
-    def __init__(self):
-        self._idx = None
-        self._state = None
+        self._mem = None
 
     @property
-    def idx(self):
-        return self._idx
+    def size(self):
+        return self.getcfg('size')
 
     @property
-    def state(self):
-        return self._state
+    def memory(self):
+        return self._mem
 
-    @idx.setter
-    def idx(self, idx: int):
-        self._idx = idx
-
-    @state.setter
-    def state(self, s):
-        self._state = s
+    def initialize(self):
+        self._mem = [[] for i in range(self.size)]
 
 
 class MemoryHTM (_htmObj_):

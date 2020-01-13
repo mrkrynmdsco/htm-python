@@ -4,7 +4,7 @@
 ### Description
 An HTM base object class.
 
-![htmObj](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mrkrynmdsco/htm-python/master/_assets/class_htmobj.puml)
+![htmObj](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/mrkrynmdsco/htm-python/master/_assets/class_basetypes.puml)
 
 ### Functional Requirements
 

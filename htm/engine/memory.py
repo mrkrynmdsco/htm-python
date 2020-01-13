@@ -1,9 +1,17 @@
 
-from htm.types.base import MemoryHTM
+from htm.types.base import Memory
 
 
-class SpatialMemory (MemoryHTM):
-    """ HTM Spatial Memory """
+class InputMemory (Memory):
+    """ Input Memory (htm) """
+
+    def __init__(self, size):
+        super().__init__(size=size)
+        pass
+
+
+class SpatialMemory (Memory):
+    """ Spatial Memory (htm) """
 
     def __init__(self):
         super().__init__()
@@ -30,14 +38,11 @@ class SpatialMemory (MemoryHTM):
         self._inhmap = None     # columns inhibition map
         self._permap = None     # synapses permanence map
 
-    def configure(self):
-        return super().configure()
-
 
 class TemporalMemory (MemoryHTM):
-    """ HTM Temporal Memory """
+    """ Temporal Memory (htm) """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, size):
+        super().__init__(size=size)
 
         self._prdmap = None     # cells prediction map

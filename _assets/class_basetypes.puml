@@ -1,13 +1,12 @@
 
-@startuml htmObj
+@startuml basetypes
 skinparam {
     shadowing true
     handwritten false
     titleFontStyle plain
 }
 skinparam class {
-    borderColor DarkGreen
-    backgroundColor Ivory
+    borderColor GoldenRod
     attributeFontSize 9
 }
 
@@ -17,17 +16,37 @@ class _htmObj_ {
     -_cfg :dict
     -_device :str
     __
-    .. Getter Functions ..
     
     +getcfg(key :str) :*
     +getcfgs(void) :dict
 
-    .. Setter Functions ..
-    
     +setcfg(key :str, *)
     +setcfgs(cfgs :dict)
 
     +append_cfgs(cfgs :dict)
 
 }
+
+class Map {
+    -_map :list
+    __
+    +size
+    +map
+    __
+    +initialize()
+
+}
+
+class Memory {
+    -_mem :list
+    __
+    +size
+    +memory
+    __
+    +initialize()
+}
+
+_htmObj_ <|-- Map
+_htmObj_ <|-- Memory
+
 @enduml
