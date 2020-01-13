@@ -7,10 +7,7 @@ skinparam {
 }
 skinparam class {
     borderColor GoldenRod
-    attributeFontSize 9
 }
-
-scale 1.5
 
 class _htmObj_ {
     -_cfg :dict
@@ -34,7 +31,6 @@ class Map {
     +map
     __
     +initialize()
-
 }
 
 class Memory {
