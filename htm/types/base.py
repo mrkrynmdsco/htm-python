@@ -96,3 +96,116 @@ class Memory (_htmObj_):
 
     def process(self):
         pass
+
+
+class MemoryHTM (_htmObj_):
+    """ HTM Memory Object """
+
+    def __init__(self):
+        super().__init__()
+        cfg = {
+            'ncols': None,      # memory number of columns
+            'ncels': None,      # memory number of cells per column
+            'nsegs': None,      # memory number of segments per cell
+            'nsyns': None,      # memory number of synapses per segment
+
+            'max_ncols': None,  # maximum number of columns
+            'max_ncels': None,  # maximum number of cells per column
+            'max_nsegs': None,  # maximum number of segments per cell
+            'max_nsyns': None,  # maximum number of synapses per segment
+        }
+        self.setcfgs(cfg)
+
+        self._colmap = None     # columns activation map
+        self._celmap = None     # cells activation map
+        self._segmap = None     # segments activation map
+        self._synmap = None     # synapses activation map
+        self._conmap = None     # connections map
+
+    @property
+    def colmap(self):
+        return self._colmap
+
+    @property
+    def celmap(self):
+        return self._celmap
+
+    @property
+    def segmap(self):
+        return self._segmap
+
+    @property
+    def synmap(self):
+        return self._synmap
+
+    @property
+    def ncolumns(self):
+        return self.getcfg('ncols')
+
+    @property
+    def ncells(self):
+        return self.getcfg('ncels')
+
+    @property
+    def nsegments(self):
+        return self.getcfg('nsegs')
+
+    @property
+    def nsynapses(self):
+        return self.getcfg('nsyns')
+
+    @ncolumns.setter
+    def ncolumns(self, n: int):
+        MAX = self.getcfg('max_ncols')
+        if n > MAX:
+            self.setcfg('ncols', n)
+        else:
+            raise Exception('Exceeded maximum number of columns. (max: {}, set: {})'.format(MAX, n))
+
+    @ncells.setter
+    def ncells(self, n: int):
+        MAX = self.getcfg('max_ncels')
+        if n > MAX:
+            self.setcfg('ncels', n)
+        else:
+            raise Exception('Exceeded maximum number of cells per column. (max: {}, set: {})'.format(MAX, n))
+
+    @nsegments.setter
+    def nsegments(self, n: int):
+        MAX = self.getcfg('max_nsegs')
+        if n > MAX:
+            self.setcfg('nsegs', n)
+        else:
+            raise Exception('Exceeded maximum number of segments per cell. (max: {}, set: {})'.format(MAX, n))
+
+    @nsynapses.setter
+    def nsynapses(self, n: int):
+        MAX = self.getcfg('max_nsyns')
+        if n > MAX:
+            self.setcfg('nsyns', n)
+        else:
+            raise Exception('Exceeded maximum number of synapses per segment. (max: {}, set: {})'.format(MAX, n))
+
+    def init_columns(self):
+        self._colmap = np.zeros((self.ncolumns, 1), dtype=bool)
+
+    def init_cells(self):
+        self._celmap = np.zeros((self.ncolumns, self.ncells), dtype=bool)
+
+    def init_segments(self):
+        self._segmap = np.zeros((self.ncolumns, self.ncells, self.nsegments), dtype=bool)
+
+    def init_synapses(self):
+        self._synmap = np.zeros((self.ncolumns, self.ncells, self.nsegments, self.nsynapses), dtype=bool)
+
+    def configure(self):
+        raise NotImplementedError
+
+    def initialize(self):
+        raise NotImplementedError
+
+    def compute(self, input, output, islearn):
+        raise NotImplementedError
+
+    def render(self, tmap):
+        raise NotImplementedError
