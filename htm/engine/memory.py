@@ -8,7 +8,7 @@ class SpatialMemory (Memory):
     def __init__(self):
         super().__init__()
         cfg = {
-            'input_shape': (32, 32),
+            'input_shape': (128, 128),
             'potential_radius': 16,
             'potential_percentage': 0.50,
             'global_inhibition': False,
@@ -26,11 +26,7 @@ class SpatialMemory (Memory):
         }
         self.append_cfgs(cfg)
 
-        self._input = None      # input memory
-
-        self._conmap = None     # connections map
         self._inhmap = None     # columns inhibition map
-        self._permap = None     # synapses permanence map
 
 
 class TemporalMemory (Memory):
@@ -43,7 +39,4 @@ class TemporalMemory (Memory):
         }
         self.append_cfgs(cfg)
 
-        self._input = None      # input memory
-
-        self._conmap = None     # connections map
         self._prdmap = None     # cells prediction map

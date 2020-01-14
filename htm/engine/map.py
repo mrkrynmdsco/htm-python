@@ -32,6 +32,14 @@ class ConnectionMap (Map):
             self.del_connection(idx, i)
 
 
+class FeedForwardMap (Map):
+    pass
+
+
+class FeedBackwardMap (Map):
+    pass
+
+
 class InhibitionMap (Map):
     pass
 

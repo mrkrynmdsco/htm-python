@@ -61,6 +61,11 @@ class Memory (_htmObj_):
         self.setcfgs(cfg)
         self._mem = None
 
+        self._ffwmap = None     # feed-forward map
+        self._fbwmap = None     # feed-backward map
+        self._conmap = None     # cells connections map
+        self._permap = None     # synapses permanence map
+
     @property
     def shape(self):
         return self.getcfg('shape')
@@ -75,9 +80,10 @@ class Memory (_htmObj_):
 
     @shape.setter
     def shape(self, s: tuple):
-        if 3 == len(s):  # 3D
+        tl = len(s)
+        if tl == 3:  # 3D
             size = s[0] * s[1] * s[2]
-        elif 2 == len(s):  # 2D
+        elif tl == 2:  # 2D
             size = s[0] * s[1] * 1
         else:
             raise Exception('Invalid memory shape!')
