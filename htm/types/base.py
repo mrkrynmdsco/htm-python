@@ -97,10 +97,16 @@ class Memory (_htmObj_):
     def configure(self):
         pass
 
-    def read_input(self, input):
+    def read(self):
+        pass
+
+    def load(self):
         pass
 
     def process(self):
+        pass
+
+    def save(self):
         pass
 
 
