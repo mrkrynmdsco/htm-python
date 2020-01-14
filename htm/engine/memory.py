@@ -2,14 +2,6 @@
 from htm.types.base import Memory
 
 
-class InputMemory (Memory):
-    """ Input Memory (htm) """
-
-    def __init__(self, size):
-        super().__init__(size=size)
-        pass
-
-
 class SpatialMemory (Memory):
     """ Spatial Memory (htm) """
 
@@ -17,7 +9,6 @@ class SpatialMemory (Memory):
         super().__init__()
         cfg = {
             'input_shape': (32, 32),
-            'column_shape': (64, 64),
             'potential_radius': 16,
             'potential_percentage': 0.50,
             'global_inhibition': False,
@@ -35,14 +26,24 @@ class SpatialMemory (Memory):
         }
         self.append_cfgs(cfg)
 
+        self._input = None      # input memory
+
+        self._conmap = None     # connections map
         self._inhmap = None     # columns inhibition map
         self._permap = None     # synapses permanence map
 
 
-class TemporalMemory (MemoryHTM):
+class TemporalMemory (Memory):
     """ Temporal Memory (htm) """
 
-    def __init__(self, size):
-        super().__init__(size=size)
+    def __init__(self):
+        super().__init__()
+        cfg = {
+            'input_shape': (128, 128),
+        }
+        self.append_cfgs(cfg)
 
+        self._input = None      # input memory
+
+        self._conmap = None     # connections map
         self._prdmap = None     # cells prediction map

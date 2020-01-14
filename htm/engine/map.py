@@ -2,12 +2,15 @@
 from htm.types.base import Map
 
 
-class Connections (Map):
-    """ Connections Map (htm) """
+class ConnectionMap (Map):
+    """ Connection Map (htm) """
 
     def __init__(self, size: int):
         super().__init__(size=size)
         self.initialize()
+
+    def initialize(self):
+        self._map = [[] for i in range(self.size)]
 
     def get_connection(self, idx: int):
         return self.map[idx]
@@ -29,3 +32,13 @@ class Connections (Map):
             self.del_connection(idx, i)
 
 
+class InhibitionMap (Map):
+    pass
+
+
+class PermanenceMap (Map):
+    pass
+
+
+class PredictionMap (Map):
+    pass
