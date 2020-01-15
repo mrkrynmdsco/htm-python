@@ -6,6 +6,7 @@ This repository is an attempt to re-implement [Numenta](https://numenta.com/)'s 
 With reference and adaptation of the following:
 * [HTM-Community](https://numenta.org/)'s [htm.core](https://github.com/htm-community/htm.core)
 * [James Mnatzaganian](https://techtorials.me/)'s [work](https://github.com/tehtechguy/mHTM) and his [thesis](https://scholarworks.rit.edu/theses/9012/)
+* [Luke G. Bourdreau](lgb9267@rit.edu)'s [thesis](https://scholarworks.rit.edu/theses/9754/)
 
 ## Purpose
 * To have a new and simple Python library based on the HTM Framework for easy usage, prototyping,  understanding, integration and portability.
@@ -65,3 +66,9 @@ With reference and adaptation of the following:
 
 ### --TBDs--
 - [ ] Visualization :wink:
+
+## Citations
+* Hierarchical Temporal Memory including HTM Cortical Learning Algorithms, Version 0.2.1 https://numenta.org/resources/HTM_CorticalLearningAlgorithms.pdf
+* Hawkins, J. et al. 2016. Biological and Machine Intelligence. Release 0.4. Accessed at http://numenta.com/biological-and-machine-intelligence/.
+* Mnatzaganian, James, Ernest Fokoué, and Dhireesha Kudithipudi. "A Mathematical Formalization of Hierarchical Temporal Memory's Spatial Pooler", https://arxiv.org/pdf/1601.06116.pdf.
+* Boudreau, Luke G., "Contractive Autoencoding for Hierarchical Temporal Memory and Sparse Distributed Representation Binding" (2018). Thesis. Rochester Institute of Technology. Accessed from https://scholarworks.rit.edu/theses/9754
