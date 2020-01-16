@@ -61,8 +61,8 @@ class Memory (_htmObj_):
         self.setcfgs(cfg)
         self._mem = None
 
-        self._ffwmap = None     # feed-forward map
-        self._fbwmap = None     # feed-backward map
+        self._ffimap = None     # feed-forward input map
+        self._fbimap = None     # feed-backward input map
         self._conmap = None     # cells connections map
         self._permap = None     # synapses permanence map
 
