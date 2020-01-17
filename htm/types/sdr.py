@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 class SDR:
     """ Sparse Distributed Representation (htm) """
 
-    def __init__(self):
-        self._nbits = None  # vector size
-        self._sprct = None  # sparsity
-        self._wbits = None  # vector cardinality
+    def __init__(self, n: int, s: float):
+        self._nbits = n             # vector size
+        self._sprct = s             # sparsity (percentage)
+        self._wbits = round(n * s)  # vector cardinality
 
     def dense(self):
         pass
