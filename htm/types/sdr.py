@@ -36,10 +36,9 @@ class SDR:
 
     def random_sparse(self, seed: int = 666, sort: bool = True):
         rng = np.random.default_rng(seed=seed)
+        self._indxs = rng.choice(a=np.arange(0, self.nbits), size=self.wbits, replace=False)
         if sort:
-            self._indxs = np.sort(rng.choice(a=np.arange(0, self.nbits), size=self.wbits, replace=False))
-        else:
-            self._indxs = rng.choice(a=np.arange(0, self.nbits), size=self.wbits, replace=False)
+            self._indxs = np.sort(self._indxs)
 
     def dense(self, shape: tuple = None):
         d = np.zeros(self.nbits, dtype=np.bool)
@@ -50,19 +49,29 @@ class SDR:
         else:
             return d
 
+    def show(self, shape: tuple, figsize: tuple = (8, 8), cmap='cividis'):
+        d = self.dense(shape)
+
+        print('Dense Representation (re-shaped)')
+        print('dtype: {}'.format(d.dtype))
+        print('ndim: {}'.format(d.ndim))
+        print('strides: {}'.format(d.strides))
+        print('shape: {}'.format(d.shape))
+        print('size: {}'.format(d.size))
+        print('data: {}'.format(d.data))
+
+        plt.figure(figsize=figsize)
+        plt.imshow(d, cmap=cmap)
+        plt.show()
+
     def info(self):
+        print('Sparse Distributed Representation')
         print('size: {}'.format(self.nbits))
         print('on-bits: {}'.format(self.wbits))
         print('sparsity: {:0.3f} %'.format(self.sparsity * 100))
 
-    def show(self, shape: tuple, figsize: tuple = (8, 8)):
-        d = self.dense(shape)
-        plt.figure(figsize=figsize)
-        plt.imshow(d, cmap='cividis')
-        plt.show()
 
-
-class SDRMetrics:
+class Metrics:
     """ SDR Metrics (htm) """
 
     def capacity(self, x: SDR):

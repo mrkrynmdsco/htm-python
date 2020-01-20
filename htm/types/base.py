@@ -2,7 +2,7 @@
 import numpy as np
 
 
-class _htmObj_ (object):
+class _htmObj_:
     """ HTM Base Object """
 
     def __init__(self):
