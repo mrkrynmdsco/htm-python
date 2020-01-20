@@ -92,7 +92,7 @@ class Memory (_htmObj_):
         self.setcfg('size', size)
 
     def initialize(self):
-        self._mem = np.zeros(self.shape, dtype=bool)
+        self._mem = np.zeros(self.shape, dtype=np.bool)
 
     def configure(self):
         pass
