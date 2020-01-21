@@ -22,23 +22,13 @@ With reference and adaptation of the following:
 ## Features
 
 ### Object Types
-
 ##### SDR Object
 - [ ] SDR (Sparse Distributed Representation)
-##### Cortical Objects (if needed, maybe not)
-- [ ] Synapse
-- [ ] Segment
-- [ ] Cell
-- [ ] Column
-- [ ] Grid Cell
-##### State Objects
-- [ ] State
 ##### Base Types
 - [ ] Map
 - [ ] Memory
 
-### Engine
-
+### Core
 ##### Hierarchy
 - [ ] Region
 - [ ] Layer
@@ -54,15 +44,14 @@ With reference and adaptation of the following:
 - [ ] Spatial Pooler
 - [ ] Temporal Pooler
 
-### Extensions
+### Encoders
+- [ ] Vision
 
-#### Encoders
-- [ ] Encoder
-- [ ] 
-#### Receptors
-- [ ] 
-#### Effectors
-- [ ] 
+### Receptors
+- [ ] Retina
+
+### Effectors
+- [ ] OculoMotor
 
 ### --TBDs--
 - [ ] Visualization :wink:

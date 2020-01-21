@@ -32,6 +32,10 @@ class ConnectionMap (Map):
             self.del_connection(idx, i)
 
 
+class ColumnMap (Map):
+    pass
+
+
 class FeedForwardMap (Map):
     pass
 
