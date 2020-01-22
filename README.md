@@ -7,6 +7,7 @@ With reference and adaptation of the following:
 * [HTM-Community](https://numenta.org/)'s [htm.core](https://github.com/htm-community/htm.core)
 * [James Mnatzaganian](https://techtorials.me/)'s [work](https://github.com/tehtechguy/mHTM) and his [thesis](https://scholarworks.rit.edu/theses/9012/)
 * [Luke G. Bourdreau](lgb9267@rit.edu)'s [thesis](https://scholarworks.rit.edu/theses/9754/)
+* [Abdullah M. Zyarah](https://scholar.google.com/citations?user=rBMPaEMAAAAJ&hl=en)'s [thesis](https://scholarworks.rit.edu/theses/8703/)
 
 ## Purpose
 * To have a new and simple Python library based on the HTM Framework for easy usage, prototyping,  understanding, integration and portability.
@@ -32,12 +33,12 @@ With reference and adaptation of the following:
 ##### Hierarchy
 - [ ] Region
 - [ ] Layer
+##### Tempo
+- [ ] Scheduler :question:
+- [ ] Sequence :question:
 ##### Memory
 - [ ] Spatial Memory
 - [ ] Temporal Memory
-##### Temporal
-- [ ] Scheduler :question:
-- [ ] Sequence :question:
 ##### Map
 - [ ] Connections
 ##### Algorithms
@@ -55,9 +56,13 @@ With reference and adaptation of the following:
 
 ### --TBDs--
 - [ ] Visualization :wink:
+- [ ] Interactive :heart_eyes:
+- [ ] Designer :sunglasses:
+- [ ] Simulator :trollface:
 
 ## Citations
 * Hierarchical Temporal Memory including HTM Cortical Learning Algorithms, Version 0.2.1 https://numenta.org/resources/HTM_CorticalLearningAlgorithms.pdf
 * Hawkins, J. et al. 2016. Biological and Machine Intelligence. Release 0.4. Accessed at http://numenta.com/biological-and-machine-intelligence/.
 * Mnatzaganian, James, Ernest Fokoué, and Dhireesha Kudithipudi. "A Mathematical Formalization of Hierarchical Temporal Memory's Spatial Pooler", https://arxiv.org/pdf/1601.06116.pdf.
 * Boudreau, Luke G., "Contractive Autoencoding for Hierarchical Temporal Memory and Sparse Distributed Representation Binding" (2018). Thesis. Rochester Institute of Technology. Accessed from https://scholarworks.rit.edu/theses/9754
+* Zyarah, Abdullah M., "Design and Analysis of a Reconfigurable Hierarchical Temporal Memory Architecture" (2015). Thesis. Rochester Institute of Technology. Accessed from https://scholarworks.rit.edu/theses/8703/

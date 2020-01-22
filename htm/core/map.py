@@ -2,6 +2,10 @@
 from htm.types.base import Map
 
 
+class PermanenceMap (Map):
+    pass
+
+
 class ConnectionMap (Map):
     """ Connection Map (htm) """
 
@@ -32,7 +36,15 @@ class ConnectionMap (Map):
             self.del_connection(idx, i)
 
 
-class ColumnMap (Map):
+class DistalStateMap (Map):
+    pass
+
+
+class CellStateMap (Map):
+    pass
+
+
+class ColumnStateMap (Map):
     pass
 
 
@@ -44,11 +56,11 @@ class FeedBackwardMap (Map):
     pass
 
 
-class InhibitionMap (Map):
+class ReceptiveFieldMap (Map):
     pass
 
 
-class PermanenceMap (Map):
+class InhibitionRadiusdMap (Map):
     pass
 
 
